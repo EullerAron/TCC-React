@@ -1,0 +1,27 @@
+#priIndex{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+#priH1 {
+    font-size: 60px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 2%;
+}
+
+#priH2 {
+    opacity: 50%;
+    letter-spacing: 4px;
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#priSelect {
+    height: 2.5em;
+     width: 7%
+}
+
+#priInput{
+    height: 2.5em;
+    width: 35%
+}
