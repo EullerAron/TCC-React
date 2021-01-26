@@ -16,5 +16,11 @@ mongoose.connect("mongodb://localhost/dbTeste", { useMongoClient: true })
   });
 
 const port = process.env.PORT || 5000;
+
+//rota de cadastro de usuario cliente e cuidador
+const cadastro = require('./controller/cadastro_controller');
+app.use('/cadastro', cadastro);
+
  
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
