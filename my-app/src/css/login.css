@@ -1,61 +1,61 @@
-body{
-    background-color: #ffffff;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
+/* body{
+    background-color: #92DECB;
+    font-family: 'Times New Roman';
+    color: rgb(26, 88, 58);
 
-form{
-    width: 30%;
+} */
+
+#form{
+    font-family: 'Times New Roman';
+    color: rgb(26, 88, 58);
+    width: 40%;
     margin: auto;
-    padding: 3%;
+    padding: 7%;
 }
 
-.card{
+#card{
+    margin-top: 10%;
     box-shadow: 1px 1px 5px;
     background-color: white;
-    padding: 12%;
-    border-radius: 5px;
+    padding: 10%;
+    border-radius: 2%;
 }
 
-#idCardTop{
+#cardTop{
     text-align: center;
 }
 
-#idImgLogin{
-    border-radius: 10%;
+#imgLogin{
+    border-radius: 10% ;
     width: 30%;
 }
 
-#idTitulo{
+#titulo{
     color:rgb(26, 88, 58);
-}#idCardGroup{
+}#cardGroup{
     margin-bottom: 5%;
 }
 
-#idCardGroup > label{
+#cardGroup > label{
     width: 100%;
     color: rgb(26, 88, 58);
     display: block;
 }
 
-#idCardGroup > input{
+#cardGroup > input{
     border-radius: 5px;
     outline: 0;
     width: 100%;
-    height: 20px;
-    padding: 5px;
+    height: 10%;
+    padding: 1%;
 }
 
-#idCardGroup > button{
+#cardGroup > button{
     background-color: rgb(26, 88, 58);
     width: 100%;
     border-radius: 30px;
-    padding: 15px;
+    padding: 5%;
     color: white;
     border: 0px;
     outline: 0;
-}
-
-#idQuadro{
-    width: 75%;
-}
-
+};

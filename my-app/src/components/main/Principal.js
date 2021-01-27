@@ -1,10 +1,9 @@
 import React from 'react';
-import '../../css/Principal.css';
+import '../../css/principal.css';
 
 function Principal() {
     return (
         <main id="priIndex">
-            <div className="row">
                 <div className="text-center">
                     <img src="/img/logo-allcare.png" width="175px"/><br />
 
@@ -22,7 +21,6 @@ function Principal() {
                     <input id="priInput" type="text" placeholder="Informe sua localização"/>
 
                 </div>
-            </div>
         </main>
     );
 }
