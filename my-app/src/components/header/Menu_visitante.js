@@ -13,9 +13,9 @@ function Menu_visitante(){
                         </Link>
                     </div>
                     <ul className="nav navbar-nav navbar-right">
-                        <li><Link to="/cadastro_usuario"><span className="glyphicon glyphicon-user"></span> Procuro um cuidador</Link></li>
-                        <li><a href="#"><span className="glyphicon glyphicon-user"></span> Quero ser um cuidador</a></li>
-                        <li><a href=""><span className="glyphicon glyphicon-log-in" ></span> Login</a></li>
+                        <li><a href=""><Link to="/cadastro"><span className="glyphicon glyphicon-user"></span> Procuro um cuidador</Link></a></li>
+                        <li><a href="#"><Link to="/cad_cuidador"><span className="glyphicon glyphicon-user"></span> Quero ser um cuidador</Link></a></li>
+                        <li><a href=""><Link to="/Login"><span className="glyphicon glyphicon-log-in" ></span> Login</Link></a></li>
                     </ul>
                 </div>
             </nav>
