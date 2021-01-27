@@ -15,7 +15,7 @@ function Menu_visitante(){
                     <ul className="nav navbar-nav navbar-right">
                         <li><Link to="/cadastro_usuario"><span className="glyphicon glyphicon-user"></span> Procuro um cuidador</Link></li>
                         <li><a href="#"><span className="glyphicon glyphicon-user"></span> Quero ser um cuidador</a></li>
-                        <li><a href=""><span className="glyphicon glyphicon-log-in" ></span> Login</a></li>
+                        <li><Link to="/Login"><span className="glyphicon glyphicon-log-in" ></span> Login</Link></li>
                     </ul>
                 </div>
             </nav>
