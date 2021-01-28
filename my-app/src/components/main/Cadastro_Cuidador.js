@@ -1,14 +1,58 @@
 import React from 'react';
-import '../../../src/css/cadastro.css';
+import '../../css/cadastro.css';
 import { Link } from 'react-router-dom';
 
-function Cadastro_Cuidador() {
+function Cadastro_Cuidador(props) {
+    /*-----  cadastrar o usuario  -----------------------------------------------------*/
+    var cadastrarUsuario = function () {
+        //componentes do cadastro de usuario
+        var nome = document.getElementById("CadidNome").value;
+        var dataNasc = document.getElementById("CadidDataNasc").value;
+        var senha = document.getElementById("CadidSenha").value;
+        var genero = document.getElementById("CadidGenero").value;
+        var telefone = document.getElementById("CadidTelefones").value;
+        var CPF = document.getElementById("CadidCpf").value;
+        var email = document.getElementById("CadidEmail").value;
+        var tipoUsuario = "cliente";
+        var cep = document.getElementById("CadidCep").value;
+        var estado = document.getElementById("CadidEstado").value;
+        var cidade = document.getElementById("CadidCidade").value;
+        var rua = document.getElementById("CadidRua").value;
+        var numero = document.getElementById("CadidNumCasa").value;
+        var bairro = document.getElementById("CadidBairro").value;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "/cadastro/cliente", true);
+
+        // Envia a informação do cabeçalho junto com a requisição.
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.addEventListener("load", function () {
+
+            var resposta = xhr.responseText;
+
+            console.log("Resposta: " + xhr.response);
+
+            var resp = JSON.parse(resposta);
+
+            console.log("acessando o user: " + resp.id);
+
+            if (resp.error){
+                console.log(resp.error);
+            } else {
+                
+            }
+        
+        });
+
+        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone+"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"cep="+cep+"&estado="+estado+"&cidade="+cidade+"&rua="+rua+"&numero="+numero+"&bairro="+bairro);
+    }
+
+
     return (
         <main id="Cadmain-cadastro" >
-            <div id="idEtapa">
-                
-            </div>
-            <form action="/cadastro" method="POST">
+            <form>
                 <div className="form-group">
                     <fieldset className="CadfieldCadastro">
                         <h1>Cadastro Cuidador</h1>
@@ -117,7 +161,7 @@ function Cadastro_Cuidador() {
                         <br /><br />
                         <br /><br />
 
-                        <Link to="/cad_criança"><button className="btn btn-outline-primary" type="input" id="CadidBtnCad">Avancar</button></Link>
+                        <Link to="/cad_crianca"><button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Avancar</button></Link>
                     </fieldset>
                 </div>
             </form>
@@ -126,3 +170,5 @@ function Cadastro_Cuidador() {
 }
 
 export default Cadastro_Cuidador;
+
+//<Route path="/login" render={(props) => <Login {...props} logado={logado}/>}   />

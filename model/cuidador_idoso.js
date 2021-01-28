@@ -1,33 +1,33 @@
 var mongoose = require('mongoose'); 
 
-const EnderecoSchema = mongoose.Schema({
+const CuidadorIdosoSchema = new mongoose.Schema({
 
-    cep: {
+    idCuidador: {
         type: String,
         require: true
     },
-    estado: {
+    agenda: {
         type: String,
         require: true
     },
-    cidade: {
+    valor: {
+        type: Number,
+        require: true
+    },
+    descricao: {
         type: String,
         require: true
     },
-    rua: {
+    localCuidado: {
         type: String,
         require: true
     },
-    numero: {
-        type: String,
-        require: true
-    },
-    bairro: {
-        type: String,
-        require: true
-    },
-    idUsuario: {
+    sexo: {
         type: String,
         require: true
     }
 });
+
+const Cuidador_Idoso = mongoose.model('Cuidador_Idoso', CuidadorIdosoSchema);
+
+module.exports = Cuidador_Idoso;

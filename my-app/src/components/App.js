@@ -14,6 +14,8 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 
 function App() {
+    const [idUsuario, setIdUsuario] = React.useState("");
+
     return (
         <div>
             <BrowserRouter>
@@ -23,8 +25,8 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route path="/contato" component={Contato} />
                     <Route path="/cadastro" component={Cadastro} />
-                    <Route path="/cad_cuidador" component={Cadastro_Cuidador}/>
-                    <Route path="/cad_criança" component={Cadastro_Crianca}/>
+                    <Route path="/cad_cuidador" render={(props) => <Cadastro_Cuidador {...props} setIdUsuario={setIdUsuario}/>} />
+                    <Route path="/cad_crianca" component={Cadastro_Crianca}/>
                     <Route path="/cad_idoso" component={Cadastro_Idoso}/>
                     <Route path="/cad_cachorro" component={Cadastro_Cachorro}/>
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />

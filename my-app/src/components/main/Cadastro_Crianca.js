@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 function Cadastro_Crianca() {
     return (
-        <div id="idIdoso">
-            <form className="container">
+        <div id="idCrianca">
+            <form id="formCuidador">
                 <h1>Cadastro Cuidador: Criança</h1>
                 <br /><br />
                 <label id="idValSer" htmlFor="idValorServico">Valor do serviço: </label>
                 <label id="idLocCui" htmlFor="idLocalCuidado">Local de trabalho: </label>
                 <label id="idGen" htmlFor="idGenero">Sexo: </label>
-                <form id="idFormIdoso">
+                <div id="idFormIdoso">
                     <input type="number" id="idValorServico" name="nmValorServico" className="form-control" />
 
                     <select id="idLocalCuidado" name="nmLocalCuidado" className="form-control" >
@@ -23,16 +23,14 @@ function Cadastro_Crianca() {
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                     </select>
-                </form>
+                </div>
                 <br /><br />
                 <label htmlFor="idDescricao">Descreva sobre você</label><br />
                 <textarea name="nmDescricao" id="idDescricao" cols="70" rows="5" className="form-control" ></textarea>
                 <br /><br />
+                <h4><b>Selecione os dias e o período que você deseja trabalhar</b></h4>
                 <div id="idPeriodo_trabalho">
-                    <h4><b>Selecione os dias e o período que você deseja trabalhar</b></h4>
-
                     <table className="tabela_Periodo">
-                        <div>
                             <tr>
                                 <th>
                                 </th>
@@ -142,7 +140,6 @@ function Cadastro_Crianca() {
                                     <input type="checkbox" id="idSabadoNoite" name="nmSabadoNoite" />
                                 </th>
                             </tr>
-                        </div>
                     </table>
                 </div>
                 <br />
