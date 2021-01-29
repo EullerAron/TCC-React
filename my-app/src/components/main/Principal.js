@@ -5,7 +5,7 @@ function Principal() {
     return (
         <main id="priIndex">
                 <div className="text-center">
-                    <img src="/img/logo-allcare.png" width="175px"/><br />
+                    <img src="/img/lotus.png" width="175px"/><br />
 
                     <h1 id="priH1">A L L <br /> C A R E</h1>
                     <h2 id="priH2">CUIDAMOS DE QUEM VOCÊ AMA </h2><br />

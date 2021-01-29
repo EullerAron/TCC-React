@@ -95,8 +95,9 @@
 /* TELA CADASTRO-CACHORRO */
 
 #idCachorro {
-    margin-top: 5%;
-    margin-left: 25%;
+    width: 100%;
+    margin: 100pt auto 50pt auto;
+    text-align: center;
 }
 
 #idValorServico {
@@ -119,12 +120,15 @@
 #idDescricao {
     height: 2%;
     width: 45%;
+    margin: 0 auto;
 }
-#idFormIdoso {
+#idFormCachorro {
     display: flex;
+    justify-content: center;
 }
 #idPeriodo_trabalho{
-    margin-left: 1.5%;
+    width: 24%;
+    margin: 0 auto;
 }
 #idBtnAvancar {
     margin-left: 30%;
@@ -133,19 +137,9 @@
 /* TELA CADASTRO-IDOSO */
 
 #idIdoso {
-    margin-top: 5%;
-    margin-left: 25%;
-}
-
-#idValorServico {
-    width: 10%;
-}
-#idLocalCuidado {
-    width: 17%;
-    margin-left: 4%;
-}
-#idLocCui {
-    margin-left: 4%;
+    width: 100%;
+    margin: 100pt auto 50pt auto;
+    text-align: center;
 }
 #idGenero {
     width: 10%;
@@ -154,16 +148,21 @@
 #idGen {
     margin-left: 10.5%;
 }
-#idDescricao {
-    height: 2%;
-    width: 45%;
-}
 #idFormIdoso {
     display: flex;
+    justify-content: center;
 }
-#idPeriodo_trabalho{
-    margin-left: 1.5%;
+
+
+/* TELA CADASTRO-CRIANCA */
+
+#idCrianca {
+    width: 100%;
+    margin: 100pt auto 50pt auto;
+    text-align: center;
 }
-#idBtnAvancar {
-    margin-left: 30%;
+#idFormCrianca {
+    display: flex;
+    justify-content: center;
 }
+

@@ -5,8 +5,16 @@
     margin-left: auto;
 }
 
-ul.nav.navbar-nav.navbar-right {
-    padding-top: 30px;
+#headerList {
+    padding-top: 20px;
+}
+
+#headerList li a {
+    color: white;
+}
+
+#headerList li a:hover {
+    color: #929292;
 }
 
 #logoMenu{

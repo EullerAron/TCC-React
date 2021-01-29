@@ -38,6 +38,30 @@ const UsuarioSchema = new mongoose.Schema({
     celular: {
         type: String,
         require: true
+    },
+    cep: {
+        type: String,
+        require: true
+    },
+    estado: {
+        type: String,
+        require: true
+    },
+    cidade: {
+        type: String,
+        require: true
+    },
+    rua: {
+        type: String,
+        require: true
+    },
+    numero: {
+        type: String,
+        require: true
+    },
+    bairro: {
+        type: String,
+        require: true
     }
 });
 

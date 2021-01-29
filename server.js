@@ -21,6 +21,14 @@ const port = process.env.PORT || 5000;
 const cadastro = require('./controller/cadastro_controller');
 app.use('/cadastro', cadastro);
 
+//rota de cadastro de usuario cliente e cuidador
+const autenticacao = require('./controller/autenticacao_controller');
+app.use('/autenticacao', autenticacao);
+
+//rota teste de token
+const token = require('./controller/teste_token');
+app.use('/token', token);
+
  
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

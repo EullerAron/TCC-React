@@ -1,7 +1,8 @@
 import React from 'react';
-import '../../../src/css/cadastro.css';
+import '../../css/cadastro.css';
 
 function Cadastro() {
+    /*-----  cadastrar o usuario  -----------------------------------------------------*/
     var cadastrarUsuario = function () {
         //componentes do cadastro de usuario
         var nome = document.getElementById("CadidNome").value;
@@ -12,6 +13,12 @@ function Cadastro() {
         var CPF = document.getElementById("CadidCpf").value;
         var email = document.getElementById("CadidEmail").value;
         var tipoUsuario = "cliente";
+        var cep = document.getElementById("CadidCep").value;
+        var estado = document.getElementById("CadidEstado").value;
+        var cidade = document.getElementById("CadidCidade").value;
+        var rua = document.getElementById("CadidRua").value;
+        var numero = document.getElementById("CadidNumCasa").value;
+        var bairro = document.getElementById("CadidBairro").value;
 
         var xhr = new XMLHttpRequest();
 
@@ -25,47 +32,24 @@ function Cadastro() {
         var resposta = xhr.responseText;
 
         console.log("Resposta: " + xhr.response);
-        console.log("Texto" + xhr.responseText);
+
         var resp = JSON.parse(resposta);
+
+        console.log("acessando o user: " + resp.id);
+
+        if (resp.error){
+            console.log(resp.error);
+        }
         
         });
 
-        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone+"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario);
-    }
-
-    var cadastrarEndereco = function () {
-        //componentes do cadastro de usuario
-        var cep = document.getElementById("CadidCep").value;
-        var estado = document.getElementById("CadidEstado").value;
-        var cidade = document.getElementById("CadidCidade").value;
-        var rua = document.getElementById("CadidRua").value;
-        var numero = document.getElementById("CadidNumCasa").value;
-        var bairro = document.getElementById("CadidBairro").value;
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.open("POST", "/cadastro/endereco", true);
-
-        // Envia a informação do cabeçalho junto com a requisição.
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhr.addEventListener("load", function () {
-
-        var resposta = xhr.responseText;
-
-        console.log("Resposta: " + xhr.response);
-        console.log("Texto" + xhr.responseText);
-        var resp = JSON.parse(resposta);
-        
-        });
-
-        xhr.send("cep="+cep+"&estado="+estado+"&cidade="+cidade+"&rua="+rua+"&numero="+numero+"&bairro="+bairro);
+        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone+"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"cep="+cep+"&estado="+estado+"&cidade="+cidade+"&rua="+rua+"&numero="+numero+"&bairro="+bairro);
     }
 
 
     return (
         <main id="Cadmain-cadastro" >
-            <form action="/cadastro" method="POST">
+            <form>
                 <div className="form-group">
                     <fieldset className="CadfieldCadastro">
                         <h1>Cadastro</h1>
@@ -113,7 +97,7 @@ function Cadastro() {
 
                         <br /><br />
                         <br /><br />
-                        
+
 
                         <div className="Cadcampo" id="CaddivCep">
                             <label htmlFor="CadidCep"><b>CEP: </b></label>
@@ -131,9 +115,9 @@ function Cadastro() {
                             <label htmlFor="CadidCidade"><b>Cidade: </b></label>
                             <input type="text" id="CadidCidade" name="nmCidade" className="form-control" />
                         </div>
-                        
+
                         <br /><br />
-                        <br /><br />                       
+                        <br /><br />
 
                         <div className="Cadcampo" id="CaddivRua">
                             <label htmlFor="CadidRua"><b>Rua: </b></label>
@@ -174,7 +158,7 @@ function Cadastro() {
                         <br /><br />
                         <br /><br />
 
-                        <button className="btn btn-outline-primary" type="input" id="CadidBtnCad">Cadastrar</button>
+                        <button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Cadastrar</button>
                     </fieldset>
                 </div>
             </form>
