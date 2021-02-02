@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from './footer/Footer_principal';
 import Contato from './main/Contato';
 import Principal from './main/Principal';
-import Cadastro from './main/Cadastro';
+import Cadastro_Usuario from './main/Cadastro_Usuario';
 import Cadastro_Cuidador from './main/Cadastro_Cuidador';
 import Cadastro_Cachorro from './main/Cadastro_Cachorro';
 import Cadastro_Idoso from './main/Cadastro_Idoso';
@@ -15,7 +15,9 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 
 function App() {
+    //repassa o iddo cuidador no cadastro
     const [idUsuario, setIdUsuario] = React.useState("");
+
     const [Menu, setMenu] = React.useState(<Menu_visitante/>);
 
     const logado = function(){
@@ -33,11 +35,11 @@ function App() {
                     <Route path="/" component={Principal} exact />
                     <Route path="/login" render={(props) => <Login {...props} logado={logado}/>} />
                     <Route path="/contato" component={Contato} />
-                    <Route path="/cadastro" component={Cadastro} />
-                    <Route path="/cad_cuidador" render={(props) => <Cadastro_Cuidador {...props} setIdUsuario={setIdUsuario}/>} />
-                    <Route path="/cad_crianca" component={Cadastro_Crianca}/>
-                    <Route path="/cad_idoso" component={Cadastro_Idoso}/>
-                    <Route path="/cad_cachorro" component={Cadastro_Cachorro}/>
+                    <Route path="/cadastro" render={(props) => <Cadastro_Usuario {...props} logado={logado}/>} />
+                    <Route path="/cad_cuidador" render={(props) => <Cadastro_Cuidador {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>} />
+                    <Route path="/cad_crianca" render={(props) => <Cadastro_Crianca {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
+                    <Route path="/cad_idoso" render={(props) => <Cadastro_Idoso {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario} logado={logado}/>}/>
+                    <Route path="/cad_cachorro" render={(props) => <Cadastro_Cachorro {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />
                 </Switch>
                 <Footer/>

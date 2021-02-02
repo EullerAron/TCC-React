@@ -2,7 +2,46 @@ import React from 'react';
 import '../../../src/css/cadastro.css';
 import { Link } from 'react-router-dom';
 
-function Cadastro_Idoso() {
+function Cadastro_Idoso(props) {
+    /*-----  cadastrar o perfil de cuidador de idoso  -----------------------------------------------------*/
+    var cadastrarCuidadorIdoso = function () {
+        //componentes do cadastro de usuario
+        var idCuidador = props.idUsuario;
+        var valor = document.getElementById("idValorServico").value;
+        var localCuidado = document.getElementById("idLocalCuidado").value;
+        var descricao = document.getElementById("idDescricao").value;
+        var sexo = document.getElementById("idGenero").value;
+        var agenda = 0;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "cadastro/cuidador/idoso", true);
+
+        // Envia a informação do cabeçalho junto com a requisição.
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.addEventListener("load", function () {
+
+            var resposta = xhr.responseText;
+
+            console.log("Resposta: " + xhr.response);
+
+            var resp = JSON.parse(resposta);
+
+            console.log("cadastro perfil cuidador idoso: " + resposta);
+
+            if (resp.error){
+                console.log(resp.error);
+            } else {
+                props.logado();
+                console.log(props.idUsuario)
+            }
+        
+        });
+
+        xhr.send("idCuidador="+idCuidador+"&valor="+valor+"&localCuidado="+localCuidado+"&sexo="+sexo+"&descricao="+descricao+"&agenda="+agenda);
+    }
+
     return (
         <div id="idIdoso">
             <form>
@@ -144,7 +183,7 @@ function Cadastro_Idoso() {
                 </div>
                 <br />
                 <Link to="/cad_crianca"><button className="btn btn-outline-primary" value="Retroceder" id="idBtnRetroceder">Retroceder</button></Link>
-                <Link to="/cad_cachorro"><button className="btn btn-outline-primary" value="Avancar" id="idBtnAvancar">Avançar</button></Link>
+                <button type="button" className="btn btn-outline-primary" value="Avancar" id="idBtnAvancar" onClick={cadastrarCuidadorIdoso}>Avançar</button>
             </form>
         </div>
     );

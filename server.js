@@ -25,6 +25,10 @@ app.use('/cadastro', cadastro);
 const autenticacao = require('./controller/autenticacao_controller');
 app.use('/autenticacao', autenticacao);
 
+//busca cuidadores
+const busca = require('./controller/busca_controller');
+app.use('/busca', busca);
+
 //rota teste de token
 const token = require('./controller/teste_token');
 app.use('/token', token);
