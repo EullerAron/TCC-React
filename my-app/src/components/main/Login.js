@@ -3,8 +3,8 @@ import React from 'react';
 import '../../css/login.css';
 
 function Login(props) {
-    /*-----  autenticar login  -----------------------------------------------------*/
-    var autenticacao = function () {
+
+    const autenticacao = function (){
         //componentes do login
         var email = document.getElementById("LogidEmail").value;
         var senha = document.getElementById("LogidSenha").value;
@@ -23,9 +23,9 @@ function Login(props) {
             let resposta2 = JSON.parse(resposta)
 
             if (resposta2.token) {
-                console.log("Resposta: " + resposta2);
-                props.logado()
-                console.log(resposta2.token)
+                console.log("Resposta: " + resposta);
+                props.logado();
+                console.log(resposta2.token);
                 /* window.location.href = '/' */ 
             } else {
                 console.log("Login invalido " + resposta)
@@ -33,7 +33,6 @@ function Login(props) {
         });
 
         xhr.send("email=" + email + "&senha=" + senha);
-
     }
 
     return (
@@ -42,7 +41,7 @@ function Login(props) {
                 <div className="card" id="card">
 
                     <div className="cardTop" id="cardTop">
-                        <img className="imgLogin" id="imgLogin" src="img/logo-allcare.png" alt="" />
+                        <img className="imgLogin" id="imgLogin" src="img/lotus.png" alt="" />
                         <h2 className="titulo" id="titulo">Faça seu Login</h2>
                     </div>
 

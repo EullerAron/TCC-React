@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express(); 
 
+const jwt = require('jsonwebtoken');
+const autenticacaoConfig = require('../config/autenticacao.json');
+
 const User = require('../model/usuario');
 const Cuidador_Cachorro = require('../model/cuidador_cachorro');
 const Cuidador_Crianca = require('../model/cuidador_criança');
@@ -18,7 +21,11 @@ app.post('/cliente', async function(req, resp){
 
         user.senha = undefined;
 
-        return resp.json({ id : user.id });
+        const token = jwt.sign({ id: user.id }, autenticacaoConfig.secret, {
+            expiresIn: 86400,
+        });
+
+        return resp.json({ id : user.id , token: token});
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao registar usuario"});
     }

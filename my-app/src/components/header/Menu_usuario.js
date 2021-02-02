@@ -9,7 +9,7 @@ function Menu_usuario(props) {
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <Link to="/" className="navbar-nav">
-                            <img className="Logo" src="/img/lotus (1)" alt="AllCare" id="logoMenu" />
+                            <img className="Logo" src="/img/lotusBranca.png" alt="AllCare" id="logoMenu" />
                         </Link>
                     </div>
                         <ul id="headerList" className="nav navbar-nav navbar-right">

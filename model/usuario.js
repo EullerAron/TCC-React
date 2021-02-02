@@ -19,7 +19,6 @@ const UsuarioSchema = new mongoose.Schema({
     CPF: {
         type: String,
         require: true,
-        require: true
     },
     email: {
         type: String,

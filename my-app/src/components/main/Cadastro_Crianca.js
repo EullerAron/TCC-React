@@ -2,7 +2,48 @@ import React from 'react';
 import '../../../src/css/cadastro.css';
 import { Link } from 'react-router-dom';
 
-function Cadastro_Crianca() {
+function Cadastro_Crianca(props) {
+    /*-----  cadastrar o perfil de cuidador de criança  -----------------------------------------------------*/
+    var cadastrarCuidadorCrianca = function () {
+        //componentes do cadastro de usuario
+        var idCuidador = props.idUsuario;
+        var valor = document.getElementById("idValorServico").value;
+        var localCuidado = document.getElementById("idLocalCuidado").value;
+        var descricao = document.getElementById("idDescricao").value;
+        var sexo = document.getElementById("idGenero").value;
+        var idadeMin = 1;
+        var idadeMax = 10;
+        var agenda = 0;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "cadastro/cuidador/crianca", true);
+
+        // Envia a informação do cabeçalho junto com a requisição.
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.addEventListener("load", function () {
+
+            var resposta = xhr.responseText;
+
+            console.log("Resposta: " + xhr.response);
+
+            var resp = JSON.parse(resposta);
+
+            console.log("cadastro perfil cuidador crianca: " + resposta);
+
+            if (resp.error){
+                console.log(resp.error);
+            } else {
+                console.log(props.idUsuario)
+            }
+        
+        });
+
+        xhr.send("idCuidador="+idCuidador+"&valor="+valor+"&localCuidado="+localCuidado+"&sexo="+sexo+"&descricao="+descricao+"&agenda="+agenda+"&idadeMin="+idadeMin+"&idadeMax="+idadeMax);
+    }
+
+
     return (
         <div id="idCrianca">
             <form id="formCuidador">
@@ -143,8 +184,8 @@ function Cadastro_Crianca() {
                     </table>
                 </div>
                 <br />
-                <Link to="/cad_cuidador"><button className="btn btn-outline-primary" value="Retroceder" id="idBtnRetroceder">Retroceder</button></Link>
-                <Link to="/cad_idoso"><button className="btn btn-outline-primary" value="Avancar" id="idBtnAvancar">Avançar</button></Link>
+                <Link to="/cad_cachorro"><button className="btn btn-outline-primary" value="Retroceder" id="idBtnRetroceder">Retroceder</button></Link>
+                <Link to="/cad_idoso"><button className="btn btn-outline-primary" value="Avancar" id="idBtnAvancar" onClick={cadastrarCuidadorCrianca}>Avançar</button></Link>
             </form>
         </div>
     );

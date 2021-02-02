@@ -13,7 +13,7 @@ function Cadastro_Cuidador(props) {
         var telefone = document.getElementById("CadidTelefones").value;
         var CPF = document.getElementById("CadidCpf").value;
         var email = document.getElementById("CadidEmail").value;
-        var tipoUsuario = "cliente";
+        var tipoUsuario = "cuidador";
         var cep = document.getElementById("CadidCep").value;
         var estado = document.getElementById("CadidEstado").value;
         var cidade = document.getElementById("CadidCidade").value;
@@ -30,9 +30,9 @@ function Cadastro_Cuidador(props) {
 
         xhr.addEventListener("load", function () {
 
-            var resposta = xhr.responseText;
-
             console.log("Resposta: " + xhr.response);
+
+            var resposta = xhr.responseText;
 
             var resp = JSON.parse(resposta);
 
@@ -41,7 +41,8 @@ function Cadastro_Cuidador(props) {
             if (resp.error){
                 console.log(resp.error);
             } else {
-                
+                props.setIdUsuario(resp.id);
+                console.log(props.idUsuario);
             }
         
         });
@@ -161,7 +162,7 @@ function Cadastro_Cuidador(props) {
                         <br /><br />
                         <br /><br />
 
-                        <Link to="/cad_crianca"><button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Avancar</button></Link>
+                        <Link to="/cad_cachorro"><button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Avancar</button></Link>
                     </fieldset>
                 </div>
             </form>
@@ -170,5 +171,3 @@ function Cadastro_Cuidador(props) {
 }
 
 export default Cadastro_Cuidador;
-
-//<Route path="/login" render={(props) => <Login {...props} logado={logado}/>}   />
