@@ -25,7 +25,7 @@ app.post('/cliente', async function(req, resp){
             expiresIn: 86400,
         });
 
-        return resp.json({ id : user.id , token: token});
+        return resp.json({ user: user, id : user.id , token: token});
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao registar usuario"});
     }

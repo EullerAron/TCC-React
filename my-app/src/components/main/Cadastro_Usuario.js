@@ -1,14 +1,50 @@
 import React, { useEffect } from 'react';
 import '../../css/cadastro.css';
 import viaCep from '../../js/viaCep';
+import InputMask from "react-input-mask";
+import Geocode from "react-geocode";
+import { Redirect } from 'react-router-dom';
 
 function Cadastro_Usuario(props) {
 
+    const [lat, setlat] = React.useState(0);
+    const [lng, setlng] = React.useState(0);
+
     useEffect(() => {
         viaCep();
+
+        document.getElementById('CadidNumCasa').addEventListener('blur', function () {
+
+            var estado = document.getElementById("CadidEstado").value;
+            var cidade = document.getElementById("CadidCidade").value;
+            var rua = document.getElementById("CadidRua").value;
+            var numero = document.getElementById("CadidNumCasa").value;
+            var bairro = document.getElementById("CadidBairro").value;
+
+            var localidade = estado + " " + cidade + " " + bairro + " " + rua + " " + numero
+
+
+            async function Geocoder(localidade) {
+                Geocode.setApiKey("AIzaSyD20-tjmRve02av9mLpPzJsPKQ7wt3R-RA");
+
+            await (Geocode.fromAddress(localidade)).then(
+                response => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    console.log(lat, lng);
+                    setlat(lat)
+                    setlng(lng)
+                }
+            )
+    
+            }
+            Geocoder(localidade)
+                console.log("State: "+ lat + lng)
+            
+        });
     });
 
-    const cadastrar = function (e) {
+    const cadastrarUsuario = function (e) {
+
         e.preventDefault();
         //componentes do cadastro de usuario
         var nome = document.getElementById("CadidNome").value;
@@ -25,6 +61,8 @@ function Cadastro_Usuario(props) {
         var rua = document.getElementById("CadidRua").value;
         var numero = document.getElementById("CadidNumCasa").value;
         var bairro = document.getElementById("CadidBairro").value;
+        var latitude = lat;
+        var longitude = lng;
 
         var xhr = new XMLHttpRequest();
 
@@ -47,17 +85,27 @@ function Cadastro_Usuario(props) {
                 console.log(resp.error);
             } else {
                 props.logado();
+                
+                setLogado(true);
             }
             
         });
 
-        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone+"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"cep="+cep+"&estado="+estado+"&cidade="+cidade+"&rua="+rua+"&numero="+numero+"&bairro="+bairro);
+        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone
+        +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"cep="+cep+"&estado="+estado+"&cidade="+cidade
+        +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
 
+    }
+
+    const [ logado, setLogado ] = React.useState(false);
+
+    if (logado){
+        return <Redirect push to="/" />;
     }
 
     return (
         <main id="Cadmain-cadastro" >
-            <form>
+            <form onSubmit={cadastrarUsuario}>
                 <div className="form-group">
                     <fieldset className="CadfieldCadastro">
                         <h1>Cadastro</h1>
@@ -93,14 +141,14 @@ function Cadastro_Usuario(props) {
 
                         <div className="Cadcampo" id="CaddivCel">
                             <label htmlFor="CadidTelefones"><b>Telefone/Celular :</b></label>
-                            <input type="text" id="CadidTelefones" name="nmTelefones" className="form-control" />
+                            <InputMask mask="(99) 9 9999-9999" id="CadidTelefones" name="nmTelefones" className="form-control" required/>
                         </div>
 
 
 
                         <div className="Cadcampo" id="CaddivCpf">
                             <label htmlFor="CadidCpf"><b>CPF: </b></label>
-                            <input type="text" id="CadidCpf" name="nmCpf" className="form-control" />
+                            <InputMask mask="999.999.999-99" id="CadidCpf" name="nmCpf" className="form-control" required/>
                         </div>
 
                         <br /><br />
@@ -109,19 +157,19 @@ function Cadastro_Usuario(props) {
 
                         <div className="Cadcampo" id="CaddivCep">
                             <label htmlFor="CadidCep"><b>CEP: </b></label>
-                            <input type="text" id="CadidCep" name="nmCep" className="form-control" />
+                            <InputMask mask="99999-999" id="CadidCep" name="nmCep" className="form-control" required/>
                         </div>
 
 
                         <div className="Cadcampo" id="CaddivEstado">
                             <label htmlFor="CadidEstado"><b>Estado: </b></label>
-                            <input type="text" id="CadidEstado" name="nmEstado" className="form-control" />
+                            <input type="text" id="CadidEstado" name="nmEstado" className="form-control" required/>
                         </div>
 
 
                         <div className="Cadcampo" id="CaddivCidade">
                             <label htmlFor="CadidCidade"><b>Cidade: </b></label>
-                            <input type="text" id="CadidCidade" name="nmCidade" className="form-control" />
+                            <input type="text" id="CadidCidade" name="nmCidade" className="form-control" required/>
                         </div>
 
                         <br /><br />
@@ -129,18 +177,18 @@ function Cadastro_Usuario(props) {
 
                         <div className="Cadcampo" id="CaddivRua">
                             <label htmlFor="CadidRua"><b>Rua: </b></label>
-                            <input type="text" id="CadidRua" name="nmRua" className="form-control" />
+                            <input type="text" id="CadidRua" name="nmRua" className="form-control" required/>
                         </div>
 
 
                         <div className="Cadcampo" id="CaddivNum">
                             <label htmlFor="CadidNumCasa"><b>Nº: </b></label>
-                            <input type="number" id="CadidNumCasa" name="nmNumCasa" className="form-control" />
+                            <input type="number" id="CadidNumCasa" name="nmNumCasa" className="form-control" required/>
                         </div>
 
                         <div className="Cadcampo" id="CaddivBairro">
                             <label htmlFor="CadidBairro"><b>Bairro: </b></label>
-                            <input type="text" id="CadidBairro" name="nmBairro" className="form-control" />
+                            <input type="text" id="CadidBairro" name="nmBairro" className="form-control" required/>
                         </div>
 
                         <br /><br />
@@ -148,25 +196,25 @@ function Cadastro_Usuario(props) {
 
                         <div className="Cadcampo" id="CaddivEmail">
                             <label htmlFor="CadidEmail"><b>E-mail: </b></label>
-                            <input type="text" id="CadidEmail" name="nmEmail" className="form-control" />
+                            <input type="text" id="CadidEmail" name="nmEmail" className="form-control" required/>
                         </div>
 
 
                         <div className="Cadcampo" id="CaddivSenha">
                             <label htmlFor="CadidSenha"><b>Crie a sua senha: </b></label>
-                            <input type="password" id="CadidSenha" name="nmSenha" className="form-control" />
+                            <input type="password" id="CadidSenha" name="nmSenha" className="form-control" required/>
                         </div>
 
 
                         <div className="Cadcampo" id="CaddivCSenha">
                             <label htmlFor="CadidConfSenha"><b>Confirme sua senha</b></label>
-                            <input type="password" id="CadidConfSenha" name="nmConfSenha" className="form-control" />
+                            <input type="password" id="CadidConfSenha" name="nmConfSenha" className="form-control" required/>
                         </div>
 
                         <br /><br />
                         <br /><br />
 
-                        <button className="btn btn-outline-primary" type="submit" id="CadidBtnCad" onClick={cadastrar}>Cadastrar</button>
+                        <button className="btn btn-outline-primary" type="submit" id="CadidBtnCad">Cadastrar</button>
                     </fieldset>
                 </div>
             </form>

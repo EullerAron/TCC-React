@@ -5,7 +5,7 @@ import '../../css/menu_visitante.css';
 function Menu_usuario(props) {
     return (
         <div>
-            <nav id="menuPrincipal" className="navbar navbar-inverse navbar-fixed-top" id="menu_visitante">
+            <nav id="menuPrincipal" className="navbar navbar-inverse" id="menu_visitante">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <Link to="/" className="navbar-nav">
