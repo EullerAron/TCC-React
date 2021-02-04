@@ -61,6 +61,14 @@ const UsuarioSchema = new mongoose.Schema({
     bairro: {
         type: String,
         require: true
+    },
+    latitude: {
+        type: String,
+        require: true
+    },
+    longitude: {
+        type: String,
+        require: true
     }
 });
 

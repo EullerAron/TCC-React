@@ -22,5 +22,8 @@ const ServicoSchema = mongoose.Schema({
         type: String,
         require: true
     }
-    
 });
+
+const Servico = mongoose.model('Servico', ServicoSchema);
+
+module.exports = Servico;

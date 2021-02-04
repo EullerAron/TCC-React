@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../css/cadastro.css';
 import { Link } from 'react-router-dom';
+import viaCep from '../../js/viaCep';
+import InputMask from "react-input-mask";
+import Geocode from "react-geocode";
 
 function Cadastro_Cuidador(props) {
-    /*-----  cadastrar o usuario  -----------------------------------------------------*/
+
+    useEffect(() => {
+        viaCep();
+    });
+
     var cadastrarUsuario = function () {
         //componentes do cadastro de usuario
         var nome = document.getElementById("CadidNome").value;
@@ -89,14 +96,14 @@ function Cadastro_Cuidador(props) {
 
                         <div className="Cadcampo" id="CaddivCel">
                             <label htmlFor="CadidTelefones"><b>Telefone/Celular :</b></label>
-                            <input type="text" id="CadidTelefones" name="nmTelefones" className="form-control" />
+                            <InputMask mask="(99) 9 9999-9999" id="CadidTelefones" name="nmTelefones" className="form-control" />
                         </div>
 
 
 
                         <div className="Cadcampo" id="CaddivCpf">
                             <label htmlFor="CadidCpf"><b>CPF: </b></label>
-                            <input type="text" id="CadidCpf" name="nmCpf" className="form-control" />
+                            <InputMask mask="999.999.999-99" id="CadidCpf" name="nmCpf" className="form-control" />
                         </div>
 
                         <br /><br />
@@ -105,7 +112,7 @@ function Cadastro_Cuidador(props) {
 
                         <div className="Cadcampo" id="CaddivCep">
                             <label htmlFor="CadidCep"><b>CEP: </b></label>
-                            <input type="text" id="CadidCep" name="nmCep" className="form-control" />
+                            <InputMask mask="99999-999" id="CadidCep" name="nmCep" className="form-control" />
                         </div>
 
 

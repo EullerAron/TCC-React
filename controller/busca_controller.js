@@ -17,7 +17,11 @@ app.post('/cuidador_cachorro', async function(req, resp){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
-                return resp.send({ cuidadores });
+                //return resp.send({ cuidadores });
+                cuidadores.forEach(element => {
+                    console.log(element.lartitude);
+                    console.log(element.longitude);
+                });
             }
         });
 
@@ -59,6 +63,30 @@ app.post('/cuidador_idoso', async function(req, resp){
         return resp.status(400).send({ error: "Erro ao buscar cuidadores"});
     }
 });
+
+    
+function CalcularDistancia(Latitude1, Longitude1, Latitude2, Longitude2){
+        
+    var RaioTerraEmKM = 6377.99121
+    var PI  = Math.PI;
+
+    var lat1Radians ;
+    var long1Radians ;
+    var lat2Radians ;
+    var long2Radians ;
+
+    lat1Radians = Latitude1 * PI / 180;
+    long1Radians = Longitude1 * PI / 180;
+    lat2Radians = Latitude2 * PI / 180;
+    long2Radians = Longitude2 * PI / 180;
+
+    return Math.acos(
+        Math.cos(lat1Radians) * Math.cos(long1Radians) * Math.cos(lat2Radians) * Math.cos(long2Radians) + 
+        Math.cos(lat1Radians) * Math.sin(long1Radians) * Math.cos(lat2Radians) * Math.sin(long2Radians) + 
+        Math.sin(lat1Radians) * Math.sin(lat2Radians)
+        ) * RaioTerraEmKM;
+
+}
 
 
 

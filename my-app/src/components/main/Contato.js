@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/contato.css';
 
 function Contato(){
     return (

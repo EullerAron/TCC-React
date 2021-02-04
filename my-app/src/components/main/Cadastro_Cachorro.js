@@ -3,15 +3,34 @@ import '../../../src/css/cadastro.css';
 import { Link } from 'react-router-dom';
 
 function Cadastro_Cachorro(props) {
-    /*-----  cadastrar o perfil de cuidador de cachorro  -----------------------------------------------------*/
+
     var cadastrarCuidadorCachorro = function () {
         //componentes do cadastro de usuario
         var idCuidador = props.idUsuario;
         var valor = document.getElementById("idValorServico").value;
         var localCuidado = document.getElementById("idLocalCuidado").value;
         var tamanho = document.getElementById("idTamanho").value;
-        var descricao = document.getElementById("idDescricao").value;
-        var agenda = 0;
+        var domingoManha = document.getElementById("idDomingoManha").checked;
+        var segundaManha = document.getElementById("idSegundaManha").checked;
+        var tercaManha = document.getElementById("idTercaManha").checked;
+        var quartaManha = document.getElementById("idQuartaManha").checked;
+        var quintaManha = document.getElementById("idQuintaManha").checked;
+        var sextaManha = document.getElementById("idSextaManha").checked;
+        var sabadoManha = document.getElementById("idSabadoManha").checked;
+        var domingoTarde = document.getElementById("idDomingoTarde").checked;
+        var segundaTarde = document.getElementById("idSegundaTarde").checked;
+        var tercaTarde = document.getElementById("idTercaTarde").checked;
+        var quartaTarde = document.getElementById("idQuartaTarde").checked;
+        var quintaTarde = document.getElementById("idQuintaTarde").checked;
+        var sextaTarde = document.getElementById("idSextaTarde").checked;
+        var sabadoTarde = document.getElementById("idSabadoTarde").checked;
+        var domingoNoite = document.getElementById("idDomingoNoite").checked;
+        var segundaNoite = document.getElementById("idSegundaNoite").checked;
+        var tercaNoite = document.getElementById("idTercaNoite").checked;
+        var quartaNoite = document.getElementById("idQuartaNoite").checked;
+        var quintaNoite = document.getElementById("idQuintaNoite").checked;
+        var sextaNoite = document.getElementById("idSextaNoite").checked;
+        var sabadoNoite = document.getElementById("idSabadoNoite").checked;
 
         var xhr = new XMLHttpRequest();
 
@@ -38,7 +57,11 @@ function Cadastro_Cachorro(props) {
         
         });
 
-        xhr.send("idCuidador="+idCuidador+"&valor="+valor+"&localCuidado="+localCuidado+"&tamanho="+tamanho+"&descricao="+descricao+"&agenda="+agenda);
+        xhr.send("idCuidador="+idCuidador+"&valor="+valor+"&localCuidado="+localCuidado+"&tamanho="+tamanho
+        +"&domingoManha="+domingoManha+"&segundaManha="+segundaManha+"&tercaManha="+tercaManha+"&quartaManha="+quartaManha+"&quintaManha="+quintaManha+"&sextaManha="+sextaManha+"&sabadoManha="+sabadoManha
+        +"&domingoTarde="+domingoTarde+"&segundaTarde="+segundaTarde+"&tercaTarde="+tercaTarde+"&quartaTarde="+quartaTarde+"&quintaTarde="+quintaTarde+"&sextaTarde="+sextaTarde+"&sabadoTarde="+sabadoTarde
+        +"&domingoNoite="+domingoNoite+"&segundaNoite="+segundaNoite+"&tercaNoite="+tercaNoite+"&quartaNoite="+quartaNoite+"&quintaNoite="+quintaNoite+"&sextaNoite="+sextaNoite+"&sabadoNoite="+sabadoNoite
+        );
     }
 
     return (
