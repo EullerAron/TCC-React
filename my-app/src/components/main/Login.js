@@ -1,6 +1,7 @@
 import { json } from 'body-parser';
 import React from 'react';
 import '../../css/login.css';
+import { Redirect } from 'react-router';
 
 function Login(props) {
 
@@ -26,13 +27,19 @@ function Login(props) {
                 console.log("Resposta: " + resposta);
                 props.logado();
                 console.log(resposta2.token);
-                /* window.location.href = '/' */ 
+                setLogado(true);
             } else {
                 console.log("Login invalido " + resposta)
             }
         });
 
         xhr.send("email=" + email + "&senha=" + senha);
+    }
+
+    const [ logado, setLogado ] = React.useState(false);
+
+    if (logado){
+        return <Redirect push to="/" />;
     }
 
     return (

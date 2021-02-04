@@ -1,5 +1,13 @@
 /* TELA CADASTRO */
 
+.form-group {
+    margin-bottom: 10%;
+}
+
+#Cadimg_preview {
+    width: 112%;
+}
+
 #Cadmain-cadastro {
     display: inline;
 }
