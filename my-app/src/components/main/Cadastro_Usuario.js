@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 import { Redirect } from 'react-router-dom';
 
 function Cadastro_Usuario(props) {
-
+     const [ logado, setLogado ] = React.useState(false);
     const [cadInfo, setCadInfo] = React.useState("");
 
     const [lat, setlat] = React.useState(0);
@@ -106,12 +106,12 @@ function Cadastro_Usuario(props) {
         +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
         +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
 
-
+    }
     if (logado){
         return <Redirect push to="/" />;
     }
 
-    const [ logado, setLogado ] = React.useState(false);
+   
 
     if (logado){
         return <Redirect push to="/" />;
