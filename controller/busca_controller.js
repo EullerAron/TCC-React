@@ -11,17 +11,53 @@ const Cuidador_Idoso = require('../model/cuidador_idoso');
 
 app.post('/cuidador_cachorro', async function(req, resp){
 
+    const latitudeUsuario = req.body.latitude;
+    const longitudeUsuario = req.body.longitude;
+    console.log(latitudeUsuario);
+    console.log(longitudeUsuario);
+
+    var cuidadoresPerto = [];
+
     try {
 
-        const cuidadores = Cuidador_Cachorro.find(function(error, cuidadores){
+        const cuidadores = Cuidador_Cachorro.find( async function(error, cuidadores){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
-                //return resp.send({ cuidadores });
-                cuidadores.forEach(element => {
-                    console.log(element.lartitude);
-                    console.log(element.longitude);
+              
+                console.log("cuidadores " + cuidadores);
+
+                cuidadores.forEach(async cuidador => {
+
+                    console.log("cuidador ===" + cuidador);
+
+                    console.log("id cuidador ===" + cuidador.idCuidador);
+
+                    const idCuidador = cuidador.idCuidador;
+
+                    await User.findById( idCuidador, function(error, user){
+                        if(error){
+                            resp.send('Erro do DB...: ' + error);
+                        } else {
+                                
+                            console.log("cadastro usuarioooooooo " + user);
+
+                            console.log(user.latitude);
+                            console.log(user.longitude);
+
+                            const dist = CalcularDistancia(latitudeUsuario, longitudeUsuario, user.latitude, user.longitude);
+                            console.log("distanciaaaaaaaaaaaaa"+dist);
+
+                            if (dist <= 5){
+                                cuidadoresPerto.push({user: user, cuidador: cuidador});
+                            }
+                        }
+                    });
+                    
                 });
+
+                console.log("Cuidadores pertoo de vccc -------" + cuidadoresPerto);
+
             }
         });
 
@@ -66,8 +102,14 @@ app.post('/cuidador_idoso', async function(req, resp){
 
     
 function CalcularDistancia(Latitude1, Longitude1, Latitude2, Longitude2){
-        
-    var RaioTerraEmKM = 6377.99121
+
+    console.log("entrou na função !!!!!!!!!!!!")
+    console.log(Latitude1);
+    console.log(Longitude1);
+    console.log(Latitude2);
+    console.log(Longitude2);
+
+    var RaioTerraEmKM = 6377.99121;
     var PI  = Math.PI;
 
     var lat1Radians ;

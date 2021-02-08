@@ -1,7 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../css/busca_cuidador.css'
 
-function Busca_Cuidador() {
+function Busca_Cuidador(props) {
+
+    useEffect(() => {
+
+        const latitude = props.latitude;
+        const longitude = props.longitude;
+        const tipoCuidado = props.tipoCuidado;
+
+        switch (tipoCuidado) {
+            case 'cachorro':
+                document.getElementById("cachorro").setAttribute("selected", "selected");
+                break;
+            case 'crianca':
+                document.getElementById("crianca").setAttribute("selected", "selected");
+                break;
+            case 'idoso':
+                document.getElementById("idoso").setAttribute("selected", "selected");
+                break;
+            default:
+
+          }
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "/busca/cuidador_cachorro", true);
+
+        // Envia a informação do cabeçalho junto com a requisição.
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.addEventListener("load", function () {
+
+            console.log("Resposta: " + xhr.response);
+
+            var resposta = xhr.responseText;
+
+            var respostaJson = JSON.parse(resposta);
+
+            console.log("acessando o user: " + respostaJson);
+
+            if (respostaJson.error) {
+                console.log(respostaJson.error);
+            } else {
+
+                console.log("foiiii: " + respostaJson);
+            }
+        });
+
+        xhr.send("latitude=" + latitude + "&longitude=" + longitude);
+    });
+
     return (
         <div>
             <div id="container">
@@ -9,9 +58,9 @@ function Busca_Cuidador() {
                     <form>
                         <label htmlFor="idCategoria">Selecione o Cuidador desejado: </label>
                         <select name="nmCategoria" id="idCategoria">
-                            <option value="criança">Criança</option>
-                            <option value="Idoso">Idoso</option>
-                            <option value="Cachorro">Cachorro</option>
+                            <option value="cachorro" id="cachorro" >Cachorro</option>
+                            <option value="crianca" id="crianca" >Criança</option>
+                            <option value="idoso" id="idoso" >Idoso</option>
                         </select><br />
 
                         <label htmlFor="idTipoCuidado">Selecione o tipo de cuidado: </label>

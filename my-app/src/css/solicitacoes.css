@@ -1,0 +1,83 @@
+#idFormSolicitacoes {
+    color: rgb(167 160 160);
+    width: 40%;
+    margin: auto;
+    padding: 7%;
+}
+#idPrimeiraDiv {
+    margin-top: 10%;
+    box-shadow: 1px 1px 5px;
+    background-color: white;
+    padding: 10%;
+    border-radius: 2%;
+}
+#idSegundaDiv {
+    text-align: center;
+}
+#idSolicitacao {
+    color: black;
+}
+#idContainerSetas{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
+#idImgEditPerfil {
+    border-radius: 10%;
+    max-width:150px;
+    max-height:100px;
+    width: auto;
+    height: auto;
+}
+.idSeta > button{
+    background-color: transparent;
+    color: black;
+    border: 0px;
+    font-size: 30px;
+    margin-top: 45px;
+    outline: none;
+
+}
+.idSeta > button > #idEsquerda {
+    margin-left: -90px;
+}
+.idSeta > button > #idDireita {
+    margin-left: 60px;
+}
+#idNomePessoa {
+    color: black;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+}
+#IdInformacoesCliente {
+    display: flex;
+    color: black;
+    font-size: 15px;
+    margin-left: 15%;
+}
+#idLocalCidade {
+    margin-left: 10%;
+}
+#idTipo {
+    color: black;
+    margin-left: 40%;
+    font-weight: bolder;
+}
+#idContainerBotoes {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.nmBotoes > button {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+}
+button > #idConfirma {
+    color: green;
+    font-size: 50px;
+}
+#idNaoConfirma {
+    color: red;
+    font-size: 50px;
+}

@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-import '../../css/principal.css';
 import { Redirect } from 'react-router';
+import '../../css/principal.css';
 
 function Principal(props) {
 
     var latitude;
     var longitude;
-    
-    const [ Busca, setBusca ] = React.useState(false);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -24,10 +22,13 @@ function Principal(props) {
         props.setLatitude(latitude);
         props.setLongitude(longitude);
         props.setTipoCuidado(document.getElementById("priSelect").value);
-        setBusca(true);
+
+        setPesquisarCuidador(true);
     }
 
-    if (Busca){
+    const [ pesquisarCuidador, setPesquisarCuidador ] = React.useState("false");
+
+    if (pesquisarCuidador == true){
         return <Redirect push to="/busca_cuidador" />;
     }
 
@@ -47,8 +48,8 @@ function Principal(props) {
                         <option value="crianca">Criança</option>
                         <option value="cachorro">Cachorro</option>
                     </select>
-                    <input type="text" placeholder="Informe sua localização" name="search"/>
-                    <a onClick={enviarInfoCuidador}><i class="fa fa-search"></i></a>
+                    <input type="text" placeholder="Informe sua localização" name="search" id="inputPri"/>
+                    <a id="pria"onClick={enviarInfoCuidador}><i class="fa fa-search"></i></a>
                 </div>
 
             </div>

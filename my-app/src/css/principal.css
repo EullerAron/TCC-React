@@ -19,7 +19,6 @@
 #priSelect {
     height: 2.5em;
     width: auto;
-    margin-right: 15px;
     border-radius: 5px;
     background-color: transparent;
     text-align: center;
@@ -31,4 +30,36 @@
     width: 35%;
     border-radius: 5px;
     padding: 0 20px;
+}
+
+.top-search-container {
+    position: relative;
+}
+
+select#priSelect {
+    position: absolute;
+    border: 0px;
+    margin: 0;
+}
+
+#inputPri{
+    width: 30%;
+    height: 35px;
+    padding-left: 130px;
+    padding-right: 35px;
+    border-radius: 7px;
+    border-color: rgb(246 148 0);
+}
+
+#pria{
+    position: absolute;
+    top: 5px;
+    right: 535px;
+    font-size: 18px;
+}
+
+.top-search-container input:focus, 
+.top-search-container select:focus, 
+.top-search-container a:focus{
+    outline: none;
 }

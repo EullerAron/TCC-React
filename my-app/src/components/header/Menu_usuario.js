@@ -12,10 +12,17 @@ function Menu_usuario(props) {
                             <img className="Logo" src="/img/lotusBranca.png" alt="AllCare" id="logoMenu" />
                         </Link>
                     </div>
-                        <ul id="headerList" className="nav navbar-nav navbar-right">
-                            <li><a><i class="fas fa-user-edit"></i> Minha Conta</a></li>
-                            <li><Link to="/"><a onClick={props.deslogado}><i class="fas fa-sign-out-alt"></i> Logout</a></Link></li>
-                        </ul>
+                    <div id="idMenuDropDown">
+                        <div class="dropdown">
+                            <button className="dropbtn"><i className="fas fa-user-edit"></i> Minha Conta</button>
+                            <div className="dropdown-content">
+                                <Link to="/">Editar Cadastro</Link>
+                                <a href="#">Editar Perfil</a>
+                                <a href="#">Solicitações</a>
+                            </div>
+                        </div>
+                        <Link to="/" onClick={props.deslogado} className="dropbtn" ><i className="fas fa-sign-out-alt"></i> Logout</Link>
+                    </div>
                 </div>
             </nav>
         </div>
