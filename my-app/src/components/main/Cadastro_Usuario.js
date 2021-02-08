@@ -14,7 +14,6 @@ function Cadastro_Usuario(props) {
 
     useEffect(() => {
         viaCep();
-
         const latLng = document.getElementById('CadidNumCasa');
 
         if (latLng) {
@@ -107,6 +106,9 @@ function Cadastro_Usuario(props) {
         +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
         +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
 
+
+    if (logado){
+        return <Redirect push to="/" />;
     }
 
     const [ logado, setLogado ] = React.useState(false);
@@ -117,7 +119,7 @@ function Cadastro_Usuario(props) {
 
     return (
         <main id="Cadmain-cadastro" >
-            <form>
+            <form onSubmit={cadastrarUsuario}>
                 <div className="form-group">
                     <fieldset className="CadfieldCadastro">
                         <h1>Cadastro</h1>
@@ -227,6 +229,7 @@ function Cadastro_Usuario(props) {
                         <br /><br />
                         <span id="cadInfo">{cadInfo}</span>
                         <button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Cadastrar</button>
+
                     </fieldset>
                 </div>
             </form>

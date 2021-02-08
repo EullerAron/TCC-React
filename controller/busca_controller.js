@@ -24,6 +24,7 @@ app.post('/cuidador_cachorro', async function(req, resp){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
+              
                 console.log("cuidadores " + cuidadores);
 
                 cuidadores.forEach(async cuidador => {

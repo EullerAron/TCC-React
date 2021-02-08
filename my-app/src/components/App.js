@@ -13,6 +13,7 @@ import Menu_usuario from './header/Menu_usuario';
 import Busca_Cuidador from './main/Busca_Cuidador';
 import Solicitacoes from './main/Solicitacoes';
 
+
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
                     <Route path="/cad_cachorro" render={(props) => <Cadastro_Cachorro {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
                     <Route path="/busca_cuidador" render={(props) => <Busca_Cuidador {...props} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} longitude={longitude} tipoCuidado={tipoCuidado} setTipoCuidado={setTipoCuidado}/>} />
                     <Route path="/solicitacoes" component={Solicitacoes} />
+
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />
                 </Switch>
                 <Footer/>

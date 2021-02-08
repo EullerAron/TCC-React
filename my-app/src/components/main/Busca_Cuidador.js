@@ -51,7 +51,6 @@ function Busca_Cuidador(props) {
         xhr.send("latitude=" + latitude + "&longitude=" + longitude);
     });
 
-
     return (
         <div>
             <div id="container">

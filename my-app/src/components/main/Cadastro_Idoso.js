@@ -57,6 +57,8 @@ function Cadastro_Idoso(props) {
                 console.log(props.idUsuario);
                 
                 setLogado(true);
+
+
             }
         
         });
