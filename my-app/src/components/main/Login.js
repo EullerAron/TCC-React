@@ -5,6 +5,8 @@ import { Redirect } from 'react-router';
 
 function Login(props) {
 
+    const [avisos, setAvisos] = React.useState("");
+
     const autenticacao = function (){
         //componentes do login
         var email = document.getElementById("LogidEmail").value;
@@ -21,15 +23,20 @@ function Login(props) {
 
             var resposta = xhr.responseText;
 
-            let resposta2 = JSON.parse(resposta)
+            let respostaJson= JSON.parse(resposta)
 
-            if (resposta2.token) {
-                console.log("Resposta: " + resposta);
+            if (respostaJson.token) {
+                //muda o menu para o menu logado
                 props.logado();
-                console.log(resposta2.token);
+
+                //grava o token e o tipo de usuario no localstorage
+                localStorage.setItem('token', respostaJson.token);
+                localStorage.setItem('tipoUsuario', respostaJson.user.tipoUsuario);
+
+                //redireciona p pag inicial
                 setLogado(true);
             } else {
-                console.log("Login invalido " + resposta)
+                setAvisos(respostaJson.error);
             }
         });
 
@@ -62,8 +69,8 @@ function Login(props) {
                         <input type="password" name="usuario" id="LogidSenha" placeholder="Digite sua senha" />
                     </div>
 
-                    <div className="cardGroup" id="cardGroup">
-                        <label><input type="checkbox" /> Lembre-me</label>
+                    <div className="cardGroup" >
+                        <label id="avisosLogin">{avisos}</label>
                     </div>
 
                     <div className="cardGroup" id="cardGroup">

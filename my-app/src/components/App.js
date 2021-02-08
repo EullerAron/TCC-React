@@ -10,9 +10,9 @@ import Cadastro_Crianca from './main/Cadastro_Crianca';
 import Login from './main/Login';
 import Menu_visitante from './header/Menu_visitante'
 import Menu_usuario from './header/Menu_usuario'
+import Busca_Cuidador from './main/Busca_Cuidador'
 
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-
 
 function App() {
     //passa informações da tela inical para tela de busca 
@@ -29,6 +29,7 @@ function App() {
         setMenu(<Menu_usuario deslogado={deslogado}/>)
     }
     const deslogado = function(){
+        localStorage.clear();
         setMenu(<Menu_visitante/>)
     }
 
@@ -45,7 +46,7 @@ function App() {
                     <Route path="/cad_crianca" render={(props) => <Cadastro_Crianca {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
                     <Route path="/cad_idoso" render={(props) => <Cadastro_Idoso {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario} logado={logado}/>}/>
                     <Route path="/cad_cachorro" render={(props) => <Cadastro_Cachorro {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
-                    <Route path="/busca_cuidadfor" />
+                    <Route path="/busca_cuidador" render={(props) => <Busca_Cuidador {...props} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} longitude={longitude} tipoCuidado={tipoCuidado} setTipoCuidado={setTipoCuidado}/>} />
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />
                 </Switch>
                 <Footer/>

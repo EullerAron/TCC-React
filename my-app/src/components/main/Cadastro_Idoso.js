@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../../src/css/cadastro.css';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 function Cadastro_Idoso(props) {
     /*-----  cadastrar o perfil de cuidador de idoso  -----------------------------------------------------*/
@@ -54,7 +55,8 @@ function Cadastro_Idoso(props) {
             } else {
                 props.logado();
                 console.log(props.idUsuario);
-                window.location.href = '/';
+                
+                setLogado(true);
             }
         
         });
@@ -64,6 +66,12 @@ function Cadastro_Idoso(props) {
         +"&domingoTarde="+domingoTarde+"&segundaTarde="+segundaTarde+"&tercaTarde="+tercaTarde+"&quartaTarde="+quartaTarde+"&quintaTarde="+quintaTarde+"&sextaTarde="+sextaTarde+"&sabadoTarde="+sabadoTarde
         +"&domingoNoite="+domingoNoite+"&segundaNoite="+segundaNoite+"&tercaNoite="+tercaNoite+"&quartaNoite="+quartaNoite+"&quintaNoite="+quintaNoite+"&sextaNoite="+sextaNoite+"&sabadoNoite="+sabadoNoite
         );
+    }
+
+    const [ logado, setLogado ] = React.useState(false);
+
+    if (logado){
+        return <Redirect push to="/" />;
     }
 
     return (

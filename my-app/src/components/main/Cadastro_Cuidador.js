@@ -7,8 +7,42 @@ import Geocode from "react-geocode";
 
 function Cadastro_Cuidador(props) {
 
+    const [cadInfo, setCadInfo] = React.useState("");
+
+    const [lat, setlat] = React.useState(0);
+    const [lng, setlng] = React.useState(0);
+
     useEffect(() => {
         viaCep();
+
+        document.getElementById('CadidNumCasa').addEventListener('blur', function () {
+
+            var estado = document.getElementById("CadidEstado").value;
+            var cidade = document.getElementById("CadidCidade").value;
+            var rua = document.getElementById("CadidRua").value;
+            var numero = document.getElementById("CadidNumCasa").value;
+            var bairro = document.getElementById("CadidBairro").value;
+
+            var localidade = estado + " " + cidade + " " + bairro + " " + rua + " " + numero
+
+
+            async function Geocoder(localidade) {
+                Geocode.setApiKey("AIzaSyD20-tjmRve02av9mLpPzJsPKQ7wt3R-RA");
+
+            await (Geocode.fromAddress(localidade)).then(
+                response => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    console.log(lat, lng);
+                    setlat(lat)
+                    setlng(lng)
+                }
+            )
+    
+            }
+            Geocoder(localidade)
+            console.log("State: "+ lat + lng)
+            
+        });
     });
 
     var cadastrarUsuario = function () {
@@ -27,6 +61,8 @@ function Cadastro_Cuidador(props) {
         var rua = document.getElementById("CadidRua").value;
         var numero = document.getElementById("CadidNumCasa").value;
         var bairro = document.getElementById("CadidBairro").value;
+        var latitude = lat;
+        var longitude = lng;
 
         var xhr = new XMLHttpRequest();
 
@@ -41,20 +77,28 @@ function Cadastro_Cuidador(props) {
 
             var resposta = xhr.responseText;
 
-            var resp = JSON.parse(resposta);
+            var respostaJson = JSON.parse(resposta);
 
-            console.log("acessando o user: " + resp.id);
+            console.log("acessando o user: " + respostaJson.id);
 
-            if (resp.error){
-                console.log(resp.error);
+            if (respostaJson.error){
+                setCadInfo(respostaJson.error);
+                console.log(respostaJson.error);
             } else {
-                props.setIdUsuario(resp.id);
+                //grava o token e o tipo de usuario no localstorage
+                localStorage.setItem('token', respostaJson.token);
+                localStorage.setItem('tipoUsuario', respostaJson.user.tipoUsuario);
+
+                //passa o id do usuario para cadastrar os perfis 
+                props.setIdUsuario(respostaJson.id);
                 console.log(props.idUsuario);
             }
         
         });
 
-        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone+"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"cep="+cep+"&estado="+estado+"&cidade="+cidade+"&rua="+rua+"&numero="+numero+"&bairro="+bairro);
+        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone
+        +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
+        +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
     }
 
 
@@ -168,7 +212,7 @@ function Cadastro_Cuidador(props) {
 
                         <br /><br />
                         <br /><br />
-
+                        <span id="cadInfo">{cadInfo}</span>
                         <Link to="/cad_cachorro"><button className="btn btn-outline-primary" type="button" id="CadidBtnCad" onClick={cadastrarUsuario}>Avancar</button></Link>
                     </fieldset>
                 </div>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Redirect } from 'react-router';
 import '../../css/principal.css';
 
 function Principal(props) {
@@ -22,6 +23,13 @@ function Principal(props) {
         props.setLongitude(longitude);
         props.setTipoCuidado(document.getElementById("priSelect").value);
 
+        setPesquisarCuidador(true);
+    }
+
+    const [ pesquisarCuidador, setPesquisarCuidador ] = React.useState("false");
+
+    if (pesquisarCuidador == true){
+        return <Redirect push to="/busca_cuidador" />;
     }
 
     return (
@@ -40,8 +48,8 @@ function Principal(props) {
                         <option value="crianca">Criança</option>
                         <option value="cachorro">Cachorro</option>
                     </select>
-                    <input type="text" placeholder="Informe sua localização" name="search"/>
-                    <a onClick={enviarInfoCuidador}><i class="fa fa-search"></i></a>
+                    <input type="text" placeholder="Informe sua localização" name="search" id="inputPri"/>
+                    <a id="pria"onClick={enviarInfoCuidador}><i class="fa fa-search"></i></a>
                 </div>
 
             </div>

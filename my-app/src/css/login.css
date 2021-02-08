@@ -55,3 +55,7 @@
     font-weight: bold !important;
     font-size: 14px !important;
 };
+
+.cardGroup #avisosLogin {
+    color: red !important;
+}
