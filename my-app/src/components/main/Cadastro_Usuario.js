@@ -106,9 +106,6 @@ function Cadastro_Usuario(props) {
         +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
         +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
 
-
-    if (logado){
-        return <Redirect push to="/" />;
     }
 
     const [ logado, setLogado ] = React.useState(false);
