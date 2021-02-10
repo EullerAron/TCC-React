@@ -69,6 +69,10 @@ const UsuarioSchema = new mongoose.Schema({
     longitude: {
         type: String,
         require: true
+    },
+    imagem: {
+        type: String,
+        require: true
     }
 });
 

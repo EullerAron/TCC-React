@@ -28,10 +28,11 @@ function Login(props) {
             if (respostaJson.token) {
                 //muda o menu para o menu logado
                 props.logado();
-
+                console.log(respostaJson)
                 //grava o token e o tipo de usuario no localstorage
                 localStorage.setItem('token', respostaJson.token);
                 localStorage.setItem('tipoUsuario', respostaJson.user.tipoUsuario);
+                localStorage.setItem('id', respostaJson.id);
 
                 //redireciona p pag inicial
                 setLogado(true);

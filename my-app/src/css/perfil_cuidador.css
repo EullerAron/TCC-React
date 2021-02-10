@@ -1,0 +1,122 @@
+#PerfCuidCorpo{
+
+    display: flex;
+    background-color: rgb(155, 155, 219);
+    width: 90%;
+    height: 100%;
+    padding: 2%;
+    margin: 0% auto 2% auto;
+}
+ 
+#ladoEsquerdo{
+    /* background-color: burlywood; */
+    width: 50%;
+    margin: 2% auto 2% auto;
+}
+
+#avaliacao{
+    display: flex;
+    /* background-color: white; */
+    width: 100%;
+    height: 53%;
+    margin: auto;
+    border: 3px solid black;
+}
+
+#quadroFoto{
+/*     width: 35%;
+    height: 40%;
+    margin-left: 0%; */
+/*     max-width: max-content; */
+   /*  max-width: 40% */
+    
+}
+
+#end{
+    /* background-color: black; */
+    max-width: 100%;
+    width: 100%;
+    margin: 4px 12px;
+
+}
+
+#foto{
+    /* background-color: violet; */
+  /*   max-width: max-content;
+    width: 65%;
+    height: 75%;
+    margin: 5%; */
+    max-width: max-content;
+    width: 100%;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+#nome{
+    font-weight: bolder;
+    font-size: 15px;
+    max-width: max-content;
+    margin-left: 23%;
+}
+
+#descricao{
+    /* background-color: yellow; */
+    width: 100%;
+    height: 50%;
+    /* margin-top: 1%;
+    border: 3px solid black; */
+}
+
+#ladoDireito{
+    /* background-color: burlywood; */
+    width: 50%;
+    margin: 2% auto 2% auto;
+}
+
+#btWhats{
+    background-color: #25d366;
+    max-width: 70%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0% 15% 0% 15%;
+}
+
+#icone{
+    color: white;
+}
+
+#btReservar{
+    max-width: 70%;
+    max-height: 100%;
+    width: 100%;
+    height: 50%;
+    margin: 5% 15% 0% 15%;
+}
+
+#disponibilidade{
+    /* background-color: teal; */
+    font-size: x-large;
+    max-width: 70%;
+    max-height: 100%;
+    width: 100%;
+    height: 10%;
+    margin: 17% 15% 0% 15%;
+}
+
+#calendario{
+    /* background-color: tomato; */
+    max-width: 70%;
+    max-height: 100%;
+    width: 100%;
+    height: 35%;
+    margin: 5% 15% 0% 15%;
+}
+
+#idSobre{
+    margin-top: 3%;
+}
+
+#idSobreDescri{
+    text-align:justify;
+}

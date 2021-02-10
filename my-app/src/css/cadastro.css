@@ -137,6 +137,10 @@
 #idPeriodo_trabalho{
     width: 24%;
     margin: 0 auto;
+    display: grid;
+}
+#idDomingo, #idSegunda, #idTerca, #idQuarta, #idQuinta, #idSexta, #idSabado {
+    margin-left: -15%;
 }
 #idBtnAvancar {
     margin-left: 30%;

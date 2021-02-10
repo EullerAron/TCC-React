@@ -26,7 +26,7 @@ app.post('/', async function(req, resp){
         expiresIn: 86400,
     });
 
-    resp.send({ user, token});
+    return resp.json({ user: user, id: user.id , token: token });
 });
 
 

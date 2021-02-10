@@ -9,9 +9,15 @@ import Cadastro_Idoso from './main/Cadastro_Idoso';
 import Cadastro_Crianca from './main/Cadastro_Crianca';
 import Login from './main/Login';
 import Menu_visitante from './header/Menu_visitante';
-import Menu_usuario from './header/Menu_usuario';
 import Busca_Cuidador from './main/Busca_Cuidador';
 import Solicitacoes from './main/Solicitacoes';
+import Menu_Usuario_Cliente from './header/Menu_Usuario_Cliente';
+import Menu_Usuario_Cuidador from './header/Menu_Usuario_Cuidador';
+import Quem_Somos from './main/Quem_Somos';
+import Servicos from './main/Servicos';
+import Perfil_Cuidador from './main/Perfil_Cuidador';
+import Editar_Cadastro_Usuario from './main/Editar_Cadastro_Usuario';
+import Editar_Cadastro_Cuidador from './main/Editar_Cadastro_Cuidador';
 
 
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
@@ -27,9 +33,17 @@ function App() {
 
     const [Menu, setMenu] = React.useState(<Menu_visitante/>);
 
+    const tipoUsuario = localStorage.getItem("tipoUsuario");
+    const token = localStorage.getItem("token");
+
     const logado = function(){
-        setMenu(<Menu_usuario deslogado={deslogado}/>)
+        if (tipoUsuario == "cuidador"){
+            setMenu(<Menu_Usuario_Cuidador deslogado={deslogado}/>);
+        } else {
+            setMenu(<Menu_Usuario_Cliente deslogado={deslogado}/>);
+        }          
     }
+
     const deslogado = function(){
         localStorage.clear();
         setMenu(<Menu_visitante/>)
@@ -50,7 +64,11 @@ function App() {
                     <Route path="/cad_cachorro" render={(props) => <Cadastro_Cachorro {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario}/>}/>
                     <Route path="/busca_cuidador" render={(props) => <Busca_Cuidador {...props} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} longitude={longitude} tipoCuidado={tipoCuidado} setTipoCuidado={setTipoCuidado}/>} />
                     <Route path="/solicitacoes" component={Solicitacoes} />
-
+                    <Route path="/quem_somos" component={Quem_Somos} />
+                    <Route path="/servicos" component={Servicos} />
+                    <Route path="/perfil_cuidador" component={Perfil_Cuidador} />
+                    <Route path="/Editar_Cadastro_Usuario" component={Editar_Cadastro_Usuario} />
+                    <Route path="/Editar_Cadastro_Cuidador" component={Editar_Cadastro_Cuidador} />
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />
                 </Switch>
                 <Footer/>

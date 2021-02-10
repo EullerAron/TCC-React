@@ -21,6 +21,10 @@ const ServicoSchema = mongoose.Schema({
     idUsuarioCliente: {
         type: String,
         require: true
+    },
+    aceite: {
+        type: Boolean,
+        require: true
     }
 });
 

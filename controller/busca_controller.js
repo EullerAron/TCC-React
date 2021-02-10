@@ -8,55 +8,38 @@ const User = require('../model/usuario');
 const Cuidador_Cachorro = require('../model/cuidador_cachorro');
 const Cuidador_Crianca = require('../model/cuidador_criança');
 const Cuidador_Idoso = require('../model/cuidador_idoso');
+const Solicitacoes = require('../model/servico');
 
-app.post('/cuidador_cachorro', async function(req, resp){
+app.get('/cuidador_cachorro/:latitude/:longitude', function(req, resp){
 
-    const latitudeUsuario = req.body.latitude;
-    const longitudeUsuario = req.body.longitude;
-    console.log(latitudeUsuario);
-    console.log(longitudeUsuario);
+    const latitudeUsuario = req.params.latitude;
+    const longitudeUsuario = req.params.longitude;
 
+    var cuidadoresEndereco = [];
     var cuidadoresPerto = [];
 
     try {
 
-        const cuidadores = Cuidador_Cachorro.find( async function(error, cuidadores){
+        const cuidadores = Cuidador_Cachorro.find(async function(error, cuidadores){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
-              
-                console.log("cuidadores " + cuidadores);
+                var teste = await enderecoCuidador(cuidadores)
 
-                cuidadores.forEach(async cuidador => {
+                for (let index = 0; index < teste.length; index++) {
+                    var user = teste[index].user;
 
-                    console.log("cuidador ===" + cuidador);
+                    var latitude = user[0].latitude;
+                    var longitude = user[0].longitude;
 
-                    console.log("id cuidador ===" + cuidador.idCuidador);
-
-                    const idCuidador = cuidador.idCuidador;
-
-                    await User.findById( idCuidador, function(error, user){
-                        if(error){
-                            resp.send('Erro do DB...: ' + error);
-                        } else {
-                                
-                            console.log("cadastro usuarioooooooo " + user);
-
-                            console.log(user.latitude);
-                            console.log(user.longitude);
-
-                            const dist = CalcularDistancia(latitudeUsuario, longitudeUsuario, user.latitude, user.longitude);
-                            console.log("distanciaaaaaaaaaaaaa"+dist);
-
-                            if (dist <= 5){
-                                cuidadoresPerto.push({user: user, cuidador: cuidador});
-                            }
-                        }
-                    });
+                    var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
                     
-                });
-
-                console.log("Cuidadores pertoo de vccc -------" + cuidadoresPerto);
+                    if (dist <= 5){
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                    }
+                }
+                
+                resp.send(cuidadoresPerto);
 
             }
         });
@@ -64,50 +47,148 @@ app.post('/cuidador_cachorro', async function(req, resp){
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao buscar cuidadores"});
     }
+
+    async function enderecoCuidador(cuidadores) {
+        
+        for (let index = 0; index < cuidadores.length; index++) {
+
+            let cuidador = cuidadores[index];
+            
+            var user = await User.find({ _id: cuidador.idCuidador })
+          
+            cuidadoresEndereco.push({ user: user, cuidador: cuidador });
+        }
+        return cuidadoresEndereco; 
+    }
+    
 });
 
-app.post('/cuidador_crianca', async function(req, resp){
+app.get('/cuidador_crianca/:latitude/:longitude', function(req, resp){
+
+    const latitudeUsuario = req.params.latitude;
+    const longitudeUsuario = req.params.longitude;
+
+    var cuidadoresEndereco = [];
+    var cuidadoresPerto = [];
 
     try {
 
-        const cuidadores = Cuidador_Crianca.find(function(error, cuidadores){
+        const cuidadores = Cuidador_Cachorro.find(async function(error, cuidadores){
             if (error) {
-                return resp.status(400).send({ error: "Erro ao buscar cuidadores de crianca"});
+                return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
-                return resp.send({ cuidadores });
+                var teste = await enderecoCuidador(cuidadores)
+
+                for (let index = 0; index < teste.length; index++) {
+                    var user = teste[index].user;
+
+                    var latitude = user[0].latitude;
+                    var longitude = user[0].longitude;
+
+                    var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
+                    
+                    if (dist <= 5){
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                    }
+                }
+                
+                resp.send(cuidadoresPerto);
+
             }
         });
 
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao buscar cuidadores"});
     }
+
+    async function enderecoCuidador(cuidadores) {
+        
+        for (let index = 0; index < cuidadores.length; index++) {
+
+            let cuidador = cuidadores[index];
+            
+            var user = await User.find({ _id: cuidador.idCuidador })
+          
+            cuidadoresEndereco.push({ user: user, cuidador: cuidador });
+        }
+        return cuidadoresEndereco; 
+    }
+    
 });
 
-app.post('/cuidador_idoso', async function(req, resp){
+app.get('/cuidador_idoso/:latitude/:longitude', function(req, resp){
+
+    const latitudeUsuario = req.params.latitude;
+    const longitudeUsuario = req.params.longitude;
+
+    var cuidadoresEndereco = [];
+    var cuidadoresPerto = [];
 
     try {
 
-        const cuidadores = Cuidador_Idoso.find(function(error, cuidadores){
+        const cuidadores = Cuidador_Cachorro.find(async function(error, cuidadores){
+            if (error) {
+                return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
+            } else {
+                var teste = await enderecoCuidador(cuidadores)
+
+                for (let index = 0; index < teste.length; index++) {
+                    var user = teste[index].user;
+
+                    var latitude = user[0].latitude;
+                    var longitude = user[0].longitude;
+
+                    var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
+                    
+                    if (dist <= 5){
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                    }
+                }
+                
+                resp.send(cuidadoresPerto);
+
+            }
+        });
+
+    } catch (err) {
+        return resp.status(400).send({ error: "Erro ao buscar cuidadores"});
+    }
+
+    async function enderecoCuidador(cuidadores) {
+        
+        for (let index = 0; index < cuidadores.length; index++) {
+
+            let cuidador = cuidadores[index];
+            
+            var user = await User.find({ _id: cuidador.idCuidador })
+          
+            cuidadoresEndereco.push({ user: user, cuidador: cuidador });
+        }
+        return cuidadoresEndereco; 
+    }
+    
+});
+
+
+app.post('/solicitacoes',  function(req, resp){
+
+    try {
+
+        const solicitacoes = Solicitacoes.find({ idUsuarioCuidador: req.body.id }, function(error, solicitacoes){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de idoso"});
             } else {
-                return resp.send({ cuidadores });
+                return resp.send({ solicitacoes });
             }
         });
 
     } catch (err) {
-        return resp.status(400).send({ error: "Erro ao buscar cuidadores"});
+        return resp.status(400).send({ error: "Erro ao buscar solicitações"});
     }
 });
 
     
 function CalcularDistancia(Latitude1, Longitude1, Latitude2, Longitude2){
-
-    console.log("entrou na função !!!!!!!!!!!!")
-    console.log(Latitude1);
-    console.log(Longitude1);
-    console.log(Latitude2);
-    console.log(Longitude2);
 
     var RaioTerraEmKM = 6377.99121;
     var PI  = Math.PI;
@@ -129,7 +210,5 @@ function CalcularDistancia(Latitude1, Longitude1, Latitude2, Longitude2){
         ) * RaioTerraEmKM;
 
 }
-
-
 
 module.exports = app;
