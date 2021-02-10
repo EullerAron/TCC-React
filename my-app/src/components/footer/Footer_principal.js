@@ -30,8 +30,8 @@ function Footer_principal() {
             <footer className="footer" id="footer">
                 <div className="footer-infos">
                     <p>INFORMAÇÕES ÚTEIS</p>
-                    <a>Quem Somos</a><br />
-                    <a>Serviços</a><br />
+                    <Link to="/quem_somos">Quem Somos</Link><br />
+                    <Link to="/servicos">Serviços</Link><br />
                     <Link to="/contato">Contato</Link><br />
                 </div>
                 <div className="footer-redesSociais">

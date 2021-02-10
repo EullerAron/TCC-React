@@ -1,6 +1,18 @@
 const express = require('express');
 const app = express(); 
 
+app.use('/uploads', express.static('uploads'));
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb){
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+
 const jwt = require('jsonwebtoken');
 const autenticacaoConfig = require('../config/autenticacao.json');
 
@@ -25,10 +37,14 @@ app.post('/cliente', async function(req, resp){
             expiresIn: 86400,
         });
 
-        return resp.json({ user: user, id : user.id , token: token});
+        return resp.json({ user: user, id: user.id , token: token });
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao registar usuario"});
     }
+});
+
+app.post('/imagem', upload.single('imagem'), function(req, resp){
+    resp.json({ imagem: req.file.destination + req.file.originalname });
 });
 
 app.post('/cuidador/cachorro', async function(req, resp){

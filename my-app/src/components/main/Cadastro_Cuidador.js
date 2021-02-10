@@ -88,6 +88,7 @@ function Cadastro_Cuidador(props) {
                 //grava o token e o tipo de usuario no localstorage
                 localStorage.setItem('token', respostaJson.token);
                 localStorage.setItem('tipoUsuario', respostaJson.user.tipoUsuario);
+                localStorage.setItem('id', respostaJson.id);
 
                 //passa o id do usuario para cadastrar os perfis 
                 props.setIdUsuario(respostaJson.id);

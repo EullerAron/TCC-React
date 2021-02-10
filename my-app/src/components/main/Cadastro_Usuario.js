@@ -46,10 +46,33 @@ function Cadastro_Usuario(props) {
                 
             });
         }
+
     });
 
-    const cadastrarUsuario = function () {
+    const [pathImagem, setPathImage] = React.useState("/img/adicionar-fotos.png");  
 
+
+    const salvarImagem = function(){
+        const imagem = document.getElementById('Cadimg_input');
+        if (imagem.files.length > 0){
+            var xhr1 = new XMLHttpRequest();
+            var formData = new FormData(); 
+            formData.append("imagem", imagem.files[0]); 
+        
+            xhr1.open('POST', '/cadastro/imagem');
+    
+            xhr1.addEventListener('load', function(){
+               var resp = JSON.parse(xhr1.responseText); 
+               console.log("--->" + resp.imagem);  
+               setPathImage(resp.imagem); 
+            })
+        
+            xhr1.send(formData); 
+        }
+    }
+
+    const cadastrarUsuario = function () {
+        var imagem = pathImagem;
         var nome = document.getElementById("CadidNome").value;
         var dataNasc = document.getElementById("CadidDataNasc").value;
         var senha = document.getElementById("CadidSenha").value;
@@ -92,6 +115,7 @@ function Cadastro_Usuario(props) {
                 //grava o token e o tipo de usuario no localstorage
                 localStorage.setItem('token', respostaJson.token);
                 localStorage.setItem('tipoUsuario', respostaJson.user.tipoUsuario);
+                localStorage.setItem('id', respostaJson.id);
 
                 //muda o menu p logado
                 props.logado();
@@ -104,7 +128,7 @@ function Cadastro_Usuario(props) {
 
         xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone
         +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
-        +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude);
+        +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude+"&imagem="+imagem);
 
     }
 
@@ -123,9 +147,9 @@ function Cadastro_Usuario(props) {
 
                         <div id="CaddivImg">
                             <div className="text-center" id="CaddivImg2">
-                                <img id="Cadimg_preview" src="/img/adicionar-fotos.png" alt="Image Preview" />
+                                <img id="Cadimg_preview" src={pathImagem} alt="Image Preview" />
                                 <br /><br />
-                                <input type="file" id="Cadimg_input" className="form-control"/>
+                                <input type="file" id="Cadimg_input" className="form-control" onChange={salvarImagem}/>
                             </div>
                         </div> 
 
