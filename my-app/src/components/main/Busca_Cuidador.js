@@ -8,6 +8,10 @@ let mapOptions = {
 };
 
 function Busca_Cuidador(props) {
+    
+    const latitude = props.latitude;
+    const longitude = props.longitude;
+    const tipoCuidado = props.tipoCuidado;
 
     const [PerfilCuidador, setPerfilCuidador] = React.useState([]);
 
@@ -43,10 +47,6 @@ function Busca_Cuidador(props) {
         }
                         
     });
-    
-    const latitude = props.latitude;
-    const longitude = props.longitude;
-    const tipoCuidado = props.tipoCuidado;
                     
     var xhr = new XMLHttpRequest();
 

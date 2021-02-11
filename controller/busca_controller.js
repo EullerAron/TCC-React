@@ -73,7 +73,7 @@ app.get('/cuidador_crianca/:latitude/:longitude', function(req, resp){
 
     try {
 
-        const cuidadores = Cuidador_Cachorro.find(async function(error, cuidadores){
+        const cuidadores = Cuidador_Crianca.find(async function(error, cuidadores){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
@@ -88,11 +88,11 @@ app.get('/cuidador_crianca/:latitude/:longitude', function(req, resp){
                     var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
                     
                     if (dist <= 5){
-                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador });
                     }
                 }
                 
-                resp.send(cuidadoresPerto);
+                resp.send({ cuidadoresPerto });
 
             }
         });
@@ -126,7 +126,7 @@ app.get('/cuidador_idoso/:latitude/:longitude', function(req, resp){
 
     try {
 
-        const cuidadores = Cuidador_Cachorro.find(async function(error, cuidadores){
+        const cuidadores = Cuidador_Idoso.find(async function(error, cuidadores){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de cachorro"});
             } else {
@@ -141,11 +141,11 @@ app.get('/cuidador_idoso/:latitude/:longitude', function(req, resp){
                     var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
                     
                     if (dist <= 5){
-                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador });
                     }
                 }
                 
-                resp.send(cuidadoresPerto);
+                resp.send({ cuidadoresPerto });
 
             }
         });
