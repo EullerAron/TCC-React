@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import '../../css/principal.css';
 import viaCepPrincipal from '../../js/Principal/viaCepPrincipal'
 import Geocode from "react-geocode";
+import InputMask from "react-input-mask";
 
 function Principal(props) {
 
@@ -21,6 +22,8 @@ function Principal(props) {
     });
 
     const enviarInfoCuidador = function () {
+
+        props.setTipoCuidado(document.getElementById("priSelect").value);
 
         function setlocalidade(estado, cidade, rua, bairro) {
             let localidade = estado + " " + cidade + " " + bairro + " " + rua;
@@ -41,7 +44,6 @@ function Principal(props) {
             )
         }
 
-        props.setTipoCuidado(document.getElementById("priSelect").value);
         setPesquisarCuidador(true);
     }
 
@@ -67,7 +69,7 @@ function Principal(props) {
                         <option value="crianca">Criança</option>
                         <option value="cachorro">Cachorro</option>
                     </select>
-                    <input type="text" placeholder="Informe sua localização" name="search" id="inputPri" />
+                    <InputMask mask="99999-999" placeholder="Informe seu CEP" name="search" id="inputPri" />
                     <a id="pria" onClick={enviarInfoCuidador}><i class="fa fa-search"></i></a>
                 </div>
 

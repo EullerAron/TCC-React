@@ -8,6 +8,12 @@ let mapOptions = {
 };
 
 function Busca_Cuidador(props) {
+    
+    const latitude = props.latitude;
+    const longitude = props.longitude;
+    const tipoCuidado = props.tipoCuidado;
+
+    const [PerfilCuidador, setPerfilCuidador] = React.useState([]);
 
     const ModelsMap = (map, maps) => {
         new maps.Marker({
@@ -41,10 +47,6 @@ function Busca_Cuidador(props) {
         }
                         
     });
-    
-    const latitude = props.latitude;
-    const longitude = props.longitude;
-    const tipoCuidado = props.tipoCuidado;
                     
     var xhr = new XMLHttpRequest();
 
@@ -54,17 +56,17 @@ function Busca_Cuidador(props) {
 
         console.log("Resposta: " + xhr.response);
 
-        var resposta = xhr.responseText;
+        var resposta = xhr.response;
 
         var respostaJson = JSON.parse(resposta);
 
-        console.log("acessando o user: " + respostaJson.user);
+        var perfilCuidadores = respostaJson.cuidadoresPerto;
 
         if (respostaJson.error) {
             console.log(respostaJson.error);
         } else {
 
-            console.log("foiiii: " + respostaJson);
+            setPerfilCuidador(perfilCuidadores);
         }
     });
 
@@ -144,85 +146,19 @@ function Busca_Cuidador(props) {
                     <div id="idTitPerfil">
                         <h3>Cuidadores Próximos</h3>
                     </div>
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Rafael Martins Silva</p>
-                            <p id="idIdade">30 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 4.8 </p>
-                        </div>
-                    </div>
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">João Silva</p>
-                            <p id="idIdade">25 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 4.2 </p>
-                        </div>
-                    </div>
 
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
+                    { PerfilCuidador.map(perfil => (
+                        <div className="idImagem" id={perfil.user._id} key={`0${perfil.user._id}`}>
+                            <img src="/img/adicionar-fotos.png" id="img" key={`1${perfil.user._id}`}></img>
+                            <div key={`6${perfil.user._id}`}>
+                                <p id="idNome" key={`2${perfil.user._id}`}>{perfil.user.nome}</p>
+                                <p id="idValor" key={`3${perfil.user._id}`}>{perfil.cuidador.valor}</p>
+                                <p id="idEnd" key={`4${perfil.user._id}`}>{perfil.user.bairro}, {perfil.user.cidade}</p>
+                                <p id="idAval" key={`5${perfil.user._id}`}>Nota: 5.0 </p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
-                        </div>
-                    </div>
-
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
-                        </div>
-                    </div>
-
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
-                        </div>
-                    </div>
-
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
-                        </div>
-                    </div>
-
-                    <div id="idImagem">
-                        <img src="/img/adicionar-fotos.png" id="img"></img>
-                        <div>
-                            <p id="idNome">Maria Antonia</p>
-                            <p id="idIdade">38 Anos</p>
-                            <p id="idEnd">End: Rua Heinrich Hosang, nº 310</p>
-                            <p id="idAval">Nota: 5.0 </p>
-                        </div>
-                    </div>
-
+                    ))}
 
                 </div>
 
