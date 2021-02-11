@@ -35,11 +35,11 @@ app.get('/cuidador_cachorro/:latitude/:longitude', function(req, resp){
                     var dist = CalcularDistancia(latitude, longitude, latitudeUsuario, longitudeUsuario);
                     
                     if (dist <= 5){
-                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador, distancia: dist});
+                        cuidadoresPerto.push({ user: user[0], cuidador: teste[index].cuidador });
                     }
                 }
                 
-                resp.send(cuidadoresPerto);
+                resp.send({ cuidadoresPerto });
 
             }
         });
