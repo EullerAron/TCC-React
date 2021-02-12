@@ -4,7 +4,7 @@ import '../../css/solicitacoes.css';
 function Card_Solicitacoes() {
 
     return (
-        <form id="idFormSolicitacoes">
+        <div id="idFormSolicitacoes">
             <div id="idPrimeiraDiv">
                 <div id="idSegundaDiv">
                     <h3 id="idSolicitacao"><b>Solicitações de Serviço</b></h3>
@@ -41,7 +41,7 @@ function Card_Solicitacoes() {
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 

@@ -20,6 +20,7 @@ const User = require('../model/usuario');
 const Cuidador_Cachorro = require('../model/cuidador_cachorro');
 const Cuidador_Crianca = require('../model/cuidador_criança');
 const Cuidador_Idoso = require('../model/cuidador_idoso');
+const Servico = require('../model/servico');
 
 app.post('/cliente', async function(req, resp){
     const { email } = req.body;
@@ -80,6 +81,18 @@ app.post('/cuidador/idoso', async function(req, resp){
         
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao registar cuidador de idoso"});
+    }
+});
+
+app.post('/servico', async function(req, resp){
+
+    try {
+        const servico = await Servico.create(req.body);
+
+        return resp.send({ servico });
+        
+    } catch (err) {
+        return resp.status(400).send({ error: "Erro ao registar servico"});
     }
 });
 

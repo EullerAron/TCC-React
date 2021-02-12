@@ -11,6 +11,7 @@ function Cadastro_Cachorro(props) {
             var valor = document.getElementById("idValorServico").value;
             var localCuidado = document.getElementById("idLocalCuidado").value;
             var tamanho = document.getElementById("idTamanho").value;
+            var descricao = document.getElementById("idDescricao").value;
             var domingoManha = document.getElementById("idDomingoManha").checked;
             var segundaManha = document.getElementById("idSegundaManha").checked;
             var tercaManha = document.getElementById("idTercaManha").checked;
@@ -58,7 +59,7 @@ function Cadastro_Cachorro(props) {
 
             });
 
-            xhr.send("idCuidador=" + idCuidador + "&valor=" + valor + "&localCuidado=" + localCuidado + "&tamanho=" + tamanho
+            xhr.send("idCuidador=" + idCuidador + "&valor=" + valor + "&localCuidado=" + localCuidado + "&tamanho=" + tamanho + "&descricao=" + descricao
                 + "&domingoManha=" + domingoManha + "&segundaManha=" + segundaManha + "&tercaManha=" + tercaManha + "&quartaManha=" + quartaManha + "&quintaManha=" + quintaManha + "&sextaManha=" + sextaManha + "&sabadoManha=" + sabadoManha
                 + "&domingoTarde=" + domingoTarde + "&segundaTarde=" + segundaTarde + "&tercaTarde=" + tercaTarde + "&quartaTarde=" + quartaTarde + "&quintaTarde=" + quintaTarde + "&sextaTarde=" + sextaTarde + "&sabadoTarde=" + sabadoTarde
                 + "&domingoNoite=" + domingoNoite + "&segundaNoite=" + segundaNoite + "&tercaNoite=" + tercaNoite + "&quartaNoite=" + quartaNoite + "&quintaNoite=" + quintaNoite + "&sextaNoite=" + sextaNoite + "&sabadoNoite=" + sabadoNoite

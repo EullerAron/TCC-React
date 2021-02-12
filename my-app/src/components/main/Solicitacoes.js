@@ -3,8 +3,53 @@ import '../../css/solicitacoes.css';
 import Card_Solicitacoes from './Card_Solicitacoes';
 
 function Solicitacoes() {
+    
+    const card = function (){
+        return(
+            <div id="idFormSolicitacoes">
+            <div id="idPrimeiraDiv">
+                <div id="idSegundaDiv">
+                    <h3 id="idSolicitacao"><b>Solicitações de Serviço</b></h3>
+                    <div id="idContainerSetas">
+                        <div className="idSeta">
+                            <button><i id="idEsquerda" class="fas fa-arrow-alt-circle-left"></i></button>
+                        </div>
+                        <div id="idDivImg">
+                            <img id="idImgEditPerfil" src="img/lotus.png" alt="" />
+                        </div>
+                        <div className="idSeta">
+                            <button><i id="idDireita" class="fas fa-arrow-alt-circle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <h4 id="idNomePessoa">Nome do Cliente</h4>
+                </div>
+                <div id="IdInformacoesCliente">
+                    <span id="idLocalBairro">Bairro</span>
+                    <br />
+                    <span id="idLocalCidade">Cidade</span>
+                </div>
+                <div>
+                    <h5 id="idTipo">Tipo de Cuidado</h5>
+                </div>
+                <div id="idContainerBotoes">
+                    <div className="nmBotoes">
+                        <button type="button"><i id="idConfirma" className="fas fa-check-circle"></i></button>
+                    </div>
+                    <div className="nmBotoes">
+                        <button type="button"><i id="idNaoConfirma" class="far fa-times-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        );
+    }
 
-    useEffect(() => {
+
+    const [ solicitacao, setSolicitacao ] = React.useState("");
+    // useEffect(() => {
         const tipoUsuario = localStorage.getItem("tipoUsuario");
         const id = localStorage.getItem("id");
 
@@ -17,13 +62,13 @@ function Solicitacoes() {
 
         xhr.addEventListener("load", function () {
 
-            console.log("Resposta: " + xhr.response);
+            
 
             var resposta = xhr.responseText;
 
             var respostaJson = JSON.parse(resposta);
 
-            console.log("solicitacoes: " + respostaJson.solicitacoes);
+            console.log("solicitacoes: " + respostaJson.solicitacoes[0]);
 
             if (respostaJson.error) {
 
@@ -33,15 +78,16 @@ function Solicitacoes() {
                 setSolicitacao("Sem Solicitações");
                 console.log("foiiii: " + respostaJson);
             } else {
-                setSolicitacao(<Card_Solicitacoes />);
+                console.log("Resposta: " + xhr.response);
+                setSolicitacao(card);
+               // setSolicitacao(<Card_Solicitacoes />);
             }
         });
 
         xhr.send("tipoUsuario=" + tipoUsuario + "&id=" + id);
 
-    });
+   // });
 
-    const [ solicitacao, setSolicitacao ] = React.useState();
 
 
     return (

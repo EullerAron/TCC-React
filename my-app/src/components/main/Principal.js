@@ -40,11 +40,11 @@ function Principal(props) {
      
                     props.setLatitude(lat);
                     props.setLongitude(lng);
+
+                    setPesquisarCuidador(true);
                 }
             )
-        }
-
-        setPesquisarCuidador(true);
+        } 
     }
 
     const [pesquisarCuidador, setPesquisarCuidador] = React.useState("false");

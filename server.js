@@ -25,7 +25,7 @@ app.use('/cadastro', cadastro);
 const autenticacao = require('./controller/autenticacao_controller');
 app.use('/autenticacao', autenticacao);
 
-//busca cuidadores
+//busca 
 const busca = require('./controller/busca_controller');
 app.use('/busca', busca);
 
