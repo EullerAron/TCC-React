@@ -10,6 +10,7 @@ function Cadastro_Idoso(props) {
             var valor = document.getElementById("idValorServico").value;
             var localCuidado = document.getElementById("idLocalCuidado").value;
             var sexo = document.getElementById("idGenero").value;
+            var descricao = document.getElementById("idDescricao").value;
             var domingoManha = document.getElementById("idDomingoManha").checked;
             var segundaManha = document.getElementById("idSegundaManha").checked;
             var tercaManha = document.getElementById("idTercaManha").checked;
@@ -59,7 +60,7 @@ function Cadastro_Idoso(props) {
 
             });
 
-            xhr.send("idCuidador=" + idCuidador + "&valor=" + valor + "&localCuidado=" + localCuidado + "&sexo=" + sexo
+            xhr.send("idCuidador=" + idCuidador + "&valor=" + valor + "&localCuidado=" + localCuidado + "&sexo=" + sexo + "&descricao=" + descricao
                 + "&domingoManha=" + domingoManha + "&segundaManha=" + segundaManha + "&tercaManha=" + tercaManha + "&quartaManha=" + quartaManha + "&quintaManha=" + quintaManha + "&sextaManha=" + sextaManha + "&sabadoManha=" + sabadoManha
                 + "&domingoTarde=" + domingoTarde + "&segundaTarde=" + segundaTarde + "&tercaTarde=" + tercaTarde + "&quartaTarde=" + quartaTarde + "&quintaTarde=" + quintaTarde + "&sextaTarde=" + sextaTarde + "&sabadoTarde=" + sabadoTarde
                 + "&domingoNoite=" + domingoNoite + "&segundaNoite=" + segundaNoite + "&tercaNoite=" + tercaNoite + "&quartaNoite=" + quartaNoite + "&quintaNoite=" + quintaNoite + "&sextaNoite=" + sextaNoite + "&sabadoNoite=" + sabadoNoite

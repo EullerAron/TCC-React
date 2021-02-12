@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import GoogleMapReact, { google } from 'google-map-react'
 import '../../css/busca_cuidador.css';
+import { Redirect } from 'react-router';
 
 let mapOptions = {
     center: { lat: -26.876800, lng: -49.062970 },
@@ -16,61 +17,84 @@ function Busca_Cuidador(props) {
     const [PerfilCuidador, setPerfilCuidador] = React.useState([]);
 
     const ModelsMap = (map, maps) => {
-        new maps.Marker({
-            position: { lat: -26.876800, lng: -49.062970 },
-            map
-
-        });
-        function muda(lat, lng) {
-            map.setCenter({ lat: -26.876800, lng: -49.062970 })
-            /* map.setCenter({ lat: lat, lng: lng }) */
+        function marca(lat, lng){
+            let latn = Number(lat)
+            let lngn = Number(lng)
+            new maps.Marker({
+                position: { lat: latn, lng: lngn },
+                map
+    
+            });
+            
         }
-        document.getElementById("alterCenter").addEventListener('click', function () {
-            muda()
-        })
+        
+        function muda(lat, lng) {
+            map.setCenter({ lat: lat, lng: lng })
+        }
+        
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "/busca/cuidador_" + tipoCuidado +  "/" + latitude + "/" + longitude, true);
+    
+        xhr.addEventListener("load", function () {
+
+            console.log("Resposta: " + xhr.response);
+
+            var resposta = xhr.response;
+
+            var respostaJson = JSON.parse(resposta);
+
+            var perfilCuidadores = respostaJson.cuidadoresPerto;
+
+            if (respostaJson.error) {
+                console.log(respostaJson.error);
+            } else {
+                for (let i = 0; i < perfilCuidadores.length; i++) {
+                    marca(perfilCuidadores[i].user.latitude, perfilCuidadores[i].user.longitude);
+                }
+                muda(latitude, longitude)
+                setPerfilCuidador(perfilCuidadores);
+            }
+        });
+
+        xhr.send();
     }
 
     useEffect(() => {
-        
-        switch (tipoCuidado) {
-            case 'cachorro':
-                document.getElementById("cachorro").setAttribute("selected", "selected");
-                break;
-            case 'crianca':
-                document.getElementById("crianca").setAttribute("selected", "selected");
-                break;
-            case 'idoso':
-                document.getElementById("idoso").setAttribute("selected", "selected");
-                break;
-            default:
-                break;
-        }
-                        
+
+        if (document.getElementById("cachorro")) {
+            switch (tipoCuidado) {
+                case 'cachorro':
+                    document.getElementById("cachorro").setAttribute("selected", "selected");
+                    break;
+                case 'crianca':
+                    document.getElementById("crianca").setAttribute("selected", "selected");
+                    break;
+                case 'idoso':
+                    document.getElementById("idoso").setAttribute("selected", "selected");
+                    break;
+                default:
+                    break;
+            }
+        }                
     });
                     
-    var xhr = new XMLHttpRequest();
+    
 
-    xhr.open("GET", "/busca/cuidador_" + tipoCuidado +  "/" + latitude + "/" + longitude, true);
- 
-    xhr.addEventListener("load", function () {
+    const carregaPerf = function (e){
+        var elemento = e.target.id;
+        console.log(elemento)
+        props.setIdPerfilCuidador(elemento);
 
-        console.log("Resposta: " + xhr.response);
+        setRedPerfil(true);
+    }
+    const [ redPerfil, setRedPerfil ] = React.useState(false);
 
-        var resposta = xhr.response;
+    if (redPerfil){
+        return <Redirect push to="/perfil_cuidador" />;
+    }
 
-        var respostaJson = JSON.parse(resposta);
-
-        var perfilCuidadores = respostaJson.cuidadoresPerto;
-
-        if (respostaJson.error) {
-            console.log(respostaJson.error);
-        } else {
-
-            setPerfilCuidador(perfilCuidadores);
-        }
-    });
-
-    xhr.send();
 
     return (
         <div>
@@ -148,11 +172,11 @@ function Busca_Cuidador(props) {
                     </div>
 
                     { PerfilCuidador.map(perfil => (
-                        <div className="idImagem" id={perfil.user._id} key={`0${perfil.user._id}`}>
+                        <div className="idImagem" id={perfil.user._id} key={`0${perfil.user._id}`} onClick={carregaPerf} >
                             <img src="/img/adicionar-fotos.png" id="img" key={`1${perfil.user._id}`}></img>
                             <div key={`6${perfil.user._id}`}>
                                 <p id="idNome" key={`2${perfil.user._id}`}>{perfil.user.nome}</p>
-                                <p id="idValor" key={`3${perfil.user._id}`}>{perfil.cuidador.valor}</p>
+                                <p id="idValor" key={`3${perfil.user._id}`}>Valor: R${perfil.cuidador.valor}</p>
                                 <p id="idEnd" key={`4${perfil.user._id}`}>{perfil.user.bairro}, {perfil.user.cidade}</p>
                                 <p id="idAval" key={`5${perfil.user._id}`}>Nota: 5.0 </p>
                             </div>

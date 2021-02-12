@@ -6,11 +6,7 @@ const ServicoSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    dataInicio: {
-        type: String,
-        require: true
-    },
-    dataFim: {
+    data: {
         type: String,
         require: true
     },

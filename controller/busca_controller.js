@@ -187,6 +187,35 @@ app.post('/solicitacoes',  function(req, resp){
     }
 });
 
+app.post('/perfil_cuidador', async function(req, resp){
+    const idPerfilCuidador = req.body.idPerfilCuidador;
+    const tipoCuidado = req.body.tipoCuidado;
+
+    try {
+
+        var user = await User.findOne({ _id: idPerfilCuidador });
+        console.log(user);
+
+        var perfilCuidador;
+
+        if (tipoCuidado == "cachorro") {
+            perfilCuidador = await Cuidador_Cachorro.findOne({ idCuidador: idPerfilCuidador });
+        } else if (tipoCuidado == "crianca") {
+            perfilCuidador = await Cuidador_Crianca.findOne({ idCuidador: idPerfilCuidador });
+        } else {
+            perfilCuidador = await Cuidador_Idoso.findOne({ idCuidador: idPerfilCuidador });
+        }
+
+        console.log(perfilCuidador);
+        return resp.json({ user: user, perfilCuidador: perfilCuidador });
+
+    } catch (err) {
+        return resp.status(400).send({ error: "Erro ao buscar perfil cuidador"});
+    }
+});
+
+
+
     
 function CalcularDistancia(Latitude1, Longitude1, Latitude2, Longitude2){
 

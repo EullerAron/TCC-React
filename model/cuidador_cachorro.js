@@ -22,16 +22,8 @@ const CuidadorCachorroSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    sexo: {
+    tamanho: {
         type: String,
-        require: true
-    },
-    idadeMin: {
-        type: Number,
-        require: true
-    },
-    idadeMax: {
-        type: Number,
         require: true
     },
     domingoManha: {
