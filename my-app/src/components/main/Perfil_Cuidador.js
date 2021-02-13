@@ -4,7 +4,8 @@ import { Redirect } from 'react-router';
 
 function Perfil_Cuidador(props) {
 
-    if (document.getElementById("PerfCuidCorpo")){
+    if(document.getElementById("PerfCuidCorpo") !== null) {
+
         const idPerfilCuidador = props.idPerfilCuidador;
         const tipoCuidado = props.tipoCuidado;
         console.log(idPerfilCuidador);
@@ -31,14 +32,16 @@ function Perfil_Cuidador(props) {
                 var perfilCuidador = respostaJson.perfilCuidador;
                 console.log(user.nome);
                 console.log(perfilCuidador);
-    
-                document.getElementById("nome").textContent = "Nome: " + user.nome;
-                document.getElementById("endereco").textContent = user.bairro + " " + user.cidade;
-                document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
-                document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
-    
-                if (perfilCuidador.domingoManha == false) {
-                    document.getElementById("idDomingoManha").style.backgroundColor = "green";
+
+                if(document.getElementById("nome") !== null) {
+                    document.getElementById("nome").textContent = "Nome: " + user.nome;
+                    document.getElementById("endereco").textContent = user.bairro + " " + user.cidade;
+                    document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
+                    document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
+        
+                    if (perfilCuidador.domingoManha == false) {
+                        document.getElementById("idDomingoManha").style.backgroundColor = "green";
+                    }
                 }
     
             }
@@ -51,7 +54,7 @@ function Perfil_Cuidador(props) {
         const token = localStorage.getItem("token");
 
         if(!token){
-            alert("Você precisa estar logado para fazer umsa reserva!")
+            alert("Você precisa estar logado para fazer uma reserva!");
         } else {
             const data = document.getElementById("data").value;
             const idUsuarioCliente = localStorage.getItem("id");
@@ -77,12 +80,11 @@ function Perfil_Cuidador(props) {
                 } else {
                     alert("Solicitação feita com sucesso! ");
                     setReservado(true);
-
                 }
             });
     
             xhr.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador
-                + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo);
+            + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo);
         }
 
     }

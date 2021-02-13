@@ -27,7 +27,9 @@ function Solicitacoes() {
 
         } else if (respostaJson.solicitacoes == ''){
             document.getElementById("idFormSolicitacoes").style.display = "none";
+
         } else {
+            document.getElementById("semSolicitacao").style.display = "none";
             console.log("ooooooooooooooooooooooo")
             console.log("Resposta: " + xhr.response);
         }
@@ -74,6 +76,9 @@ function Solicitacoes() {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="semSolicitacao">
+                sem solicitacoes
             </div>
         </div>
     );
