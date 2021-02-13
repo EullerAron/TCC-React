@@ -1,82 +1,97 @@
 import React from 'react';
 import '../../css/perfil_cuidador.css';
+import { Redirect } from 'react-router';
 
 function Perfil_Cuidador(props) {
 
-    const idPerfilCuidador = props.idPerfilCuidador;
-    const tipoCuidado = props.tipoCuidado;
-    console.log(idPerfilCuidador);
-    console.log(tipoCuidado);
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "/busca/perfil_cuidador", true);
-
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.addEventListener("load", function () {
-
-        console.log("Resposta: " + xhr.response);
-
-        var resposta = xhr.response;
-
-        var respostaJson = JSON.parse(resposta);
-
-        if (respostaJson.error) {
-            console.log(respostaJson.error);
-        } else {
-            var user = respostaJson.user;
-            var perfilCuidador = respostaJson.perfilCuidador;
-            console.log(user.nome);
-            console.log(perfilCuidador);
-
-            document.getElementById("nome").textContent = "Nome: " + user.nome;
-            document.getElementById("endereco").textContent = user.bairro + " " + user.cidade;
-            document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
-            document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
-
-            if (perfilCuidador.domingoManha == false) {
-                document.getElementById("idDomingoManha").style.backgroundColor = "green";
-            }
-
-        }
-    });
-
-    xhr.send("idPerfilCuidador=" + idPerfilCuidador + "&tipoCuidado=" + tipoCuidado);
-
-    const reservar = function () {
-        const data = document.getElementById("data").value;
-        const idUsuarioCliente = localStorage.getItem("id");
-        const idUsuarioCuidador = props.idPerfilCuidador;
-        const tipo = props.tipoCuidado;
-
+    if (document.getElementById("PerfCuidCorpo")){
+        const idPerfilCuidador = props.idPerfilCuidador;
+        const tipoCuidado = props.tipoCuidado;
+        console.log(idPerfilCuidador);
+        console.log(tipoCuidado);
+    
         var xhr = new XMLHttpRequest();
-
-        xhr.open("POST", "/cadastro/servico", true);
-
+    
+        xhr.open("POST", "/busca/perfil_cuidador", true);
+    
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
+    
         xhr.addEventListener("load", function () {
-
+    
             console.log("Resposta: " + xhr.response);
-
+    
             var resposta = xhr.response;
-
+    
             var respostaJson = JSON.parse(resposta);
-
+    
             if (respostaJson.error) {
                 console.log(respostaJson.error);
             } else {
-
-
+                var user = respostaJson.user;
+                var perfilCuidador = respostaJson.perfilCuidador;
+                console.log(user.nome);
+                console.log(perfilCuidador);
+    
+                document.getElementById("nome").textContent = "Nome: " + user.nome;
+                document.getElementById("endereco").textContent = user.bairro + " " + user.cidade;
+                document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
+                document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
+    
+                if (perfilCuidador.domingoManha == false) {
+                    document.getElementById("idDomingoManha").style.backgroundColor = "green";
+                }
+    
             }
         });
+    
+        xhr.send("idPerfilCuidador=" + idPerfilCuidador + "&tipoCuidado=" + tipoCuidado);
+    }
 
-        xhr.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador
-            + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo);
+    const reservar = function () {
+        const token = localStorage.getItem("token");
+
+        if(!token){
+            alert("Você precisa estar logado para fazer umsa reserva!")
+        } else {
+            const data = document.getElementById("data").value;
+            const idUsuarioCliente = localStorage.getItem("id");
+            const idUsuarioCuidador = props.idPerfilCuidador;
+            const tipo = props.tipoCuidado;
+    
+            var xhr = new XMLHttpRequest();
+    
+            xhr.open("POST", "/cadastro/servico", true);
+    
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+            xhr.addEventListener("load", function () {
+    
+                console.log("Resposta: " + xhr.response);
+    
+                var resposta = xhr.response;
+    
+                var respostaJson = JSON.parse(resposta);
+    
+                if (respostaJson.error) {
+                    console.log(respostaJson.error);
+                } else {
+                    alert("Solicitação feita com sucesso! ");
+                    setReservado(true);
+
+                }
+            });
+    
+            xhr.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador
+                + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo);
+        }
 
     }
 
+    const [ reservado, setReservado ] = React.useState(false);
+
+    if (reservado){
+        return <Redirect push to="/" />;
+    }
 
     return (
         <div>
@@ -112,9 +127,6 @@ function Perfil_Cuidador(props) {
 
                 <div id="ladoDireito">
                     <div id="">
-                        {/* <a class="btn btn-outline-primary" href="https://web.whatsapp.com/send?phone=5541999995620" target="_blank" role="button" id="btWhats">
-                            INICIAR CONVERSA  <i className="fa fa-whatsapp" id="icone" />
-                        </a> */}
                         <button type="button" class="btn btn-outline-primary" id="btReservar" onClick={reservar}>RESERVAR</button>
                     </div>
 
@@ -242,7 +254,6 @@ function Perfil_Cuidador(props) {
                     </th>
                 </tr>
             </table>
-
 
         </div>
     );

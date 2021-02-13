@@ -53,7 +53,7 @@ function buscaCuidadores (latitude, longitude, tipoCuidador){
             });
     
             xhr.send("tipoCuidador="+tipoCuidador);
-            break;render={(props) => <Principal {...props} latitude={latitude} longitude={longitude} tipoCuidado={tipoCuidado}/>}
+            break;
 
         case "idoso":
             var xhr = new XMLHttpRequest();
