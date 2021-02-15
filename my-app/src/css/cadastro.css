@@ -2,6 +2,7 @@
 
 .form-group {
     margin-bottom: 10%;
+    
 }
 
 #Cadimg_preview {
@@ -106,6 +107,7 @@
     width: 100%;
     margin: 100pt auto 50pt auto;
     text-align: center;
+    
 }
 
 #idValorServico {

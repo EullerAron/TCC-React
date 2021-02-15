@@ -3,6 +3,14 @@
     width: 40%;
     margin: auto;
     padding: 7%;
+     
+}
+#imagem{
+    margin-top: -2%;
+    background-image: url(../img/FundoLogin.png);
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
 }
 
 #card{

@@ -51,7 +51,8 @@ function Login(props) {
     }
 
     return (
-        <div>
+        <div id="imagem">
+            <br/><br/>
             <form className="form" id="form">
                 <div className="card" id="card">
 
@@ -80,7 +81,7 @@ function Login(props) {
 
                 </div>
             </form>
-
+            <br/><br/>
         </div>
 
     );

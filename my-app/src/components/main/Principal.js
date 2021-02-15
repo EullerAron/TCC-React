@@ -57,11 +57,12 @@ function Principal(props) {
         <main id="priIndex">
             <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
             <div className="text-center">
+                <br/><br/><br/>
                 <img src="/img/lotus.png" width="175px" /><br />
 
                 <h1 id="priH1">A L L <br /> C A R E</h1>
                 <h2 id="priH2">CUIDAMOS DE QUEM VOCÊ AMA </h2><br />
-                <br /><br /><br />
+                <br /><br />
 
                 <div class="top-search-container">
                     <select name="selectTipo" id="priSelect" >
