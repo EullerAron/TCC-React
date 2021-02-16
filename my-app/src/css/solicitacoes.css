@@ -81,3 +81,36 @@ button > #idConfirma {
     color: red;
     font-size: 50px;
 }
+
+/* Sem Solicitações */
+
+#idFormSemSolicitacoes {
+    color: rgb(167 160 160);
+    width: 40%;
+    margin: auto;
+    padding: 7%;
+}
+#idDivSemSolicitacoes {
+    margin-top: 10%;
+    box-shadow: 1px 1px 5px;
+    background-color: white;
+    padding: 10%;
+    border-radius: 2%;
+    text-align: center;
+}
+#idTriste {
+    font-size: 150px;
+    color: #dc5f9ef5;
+    
+}
+#idTituloSemSolic {
+    color: black;
+}
+
+
+
+#idSolicitacaoAceita {
+    text-align-last: center;
+    font-size: 30px;
+    color: #30bd30;
+}

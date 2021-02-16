@@ -14,7 +14,7 @@ function Busca_Cuidador(props) {
     const longitude = props.longitude;
     const tipoCuidado = props.tipoCuidado;
 
-    const [PerfilCuidador, setPerfilCuidador] = React.useState([]);
+    const [ PerfilCuidador, setPerfilCuidador ] = React.useState([]);
 
     const ModelsMap = (map, maps) => {
         function marca(lat, lng){
@@ -81,14 +81,14 @@ function Busca_Cuidador(props) {
     });
                     
     
-
     const carregaPerf = function (e){
         var elemento = e.target.id;
-        console.log(elemento)
+        console.log(elemento);
         props.setIdPerfilCuidador(elemento);
-
+        props.setLocalCuidado(document.getElementById("idTipoCuidado").value);
         setRedPerfil(true);
     }
+
     const [ redPerfil, setRedPerfil ] = React.useState(false);
 
     if (redPerfil){
@@ -111,7 +111,7 @@ function Busca_Cuidador(props) {
                         </div>
 
                         <div id="filtrosInt">
-                            <label htmlFor="idTipoCuidado">Selecione o tipo de cuidado: </label>
+                            <label htmlFor="idTipoCuidado">Selecione o local de cuidado: </label>
                             <select name="nmTipoCuidado" id="idTipoCuidado">
                                 <option value="minhaCasa">Minha Casa</option>
                                 <option value="casaCuidador">Casa Cuidador</option>

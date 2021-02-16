@@ -10,6 +10,17 @@ const Cuidador_Crianca = require('../model/cuidador_criança');
 const Cuidador_Idoso = require('../model/cuidador_idoso');
 const Solicitacoes = require('../model/servico');
 
+app.get('/user/:id', function (req, resp) {
+
+    User.findById(req.params.id, function (error, user) {
+      if (error) {
+        return resp.status(400).send({ error: "Erro ao buscar usuarios"});
+      } else {
+        resp.json(user);
+      }
+    })
+});
+
 app.get('/cuidador_cachorro/:latitude/:longitude', function(req, resp){
 
     const latitudeUsuario = req.params.latitude;
@@ -174,11 +185,13 @@ app.post('/solicitacoes',  function(req, resp){
 
     try {
 
-        const solicitacoes = Solicitacoes.find({ idUsuarioCuidador: req.body.id }, function(error, solicitacoes){
+        var solicitacoes = Solicitacoes.find({ idUsuarioCuidador: req.body.id }, function(error, resposta){
             if (error) {
                 return resp.status(400).send({ error: "Erro ao buscar cuidadores de idoso"});
             } else {
-                return resp.send({ solicitacoes });
+                console.log("==Solicitacoes==> " + solicitacoes);
+                console.log("==resp =========> " + resposta);
+                return resp.json(resposta);
             }
         });
 

@@ -85,9 +85,13 @@ app.post('/cuidador/idoso', async function(req, resp){
 });
 
 app.post('/servico', async function(req, resp){
+    console.log("cadastrando servico")
 
     try {
+        console.log("cadastrando servico parte 2")
         const servico = await Servico.create(req.body);
+
+        console.log(servico);
 
         return resp.send({ servico });
         

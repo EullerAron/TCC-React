@@ -20,6 +20,26 @@ const ServicoSchema = mongoose.Schema({
     },
     aceite: {
         type: Boolean,
+        require: false
+    },
+    nomeCliente: {
+        type: String,
+        require: true
+    },
+    bairroCliente: {
+        type: String,
+        require: true
+    },
+    cidadeCliente: {
+        type: String,
+        require: true
+    },
+    localCuidado: {
+        type: String,
+        require: true
+    },
+    telefoneCliente: {
+        type: String,
         require: true
     }
 });

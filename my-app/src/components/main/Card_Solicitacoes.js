@@ -42,6 +42,7 @@ function Card_Solicitacoes() {
                 </div>
             </div>
         </div>
+
     );
 }
 

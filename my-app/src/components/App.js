@@ -32,8 +32,10 @@ function App() {
     const [idUsuario, setIdUsuario] = React.useState("");
 
     const [Menu, setMenu] = React.useState(<Menu_visitante />);
-    //Repassa o id do cuidador para a tela perfil
+
+    //Repassa o id do cuidador e o local de cuidado para a tela perfil
     const [idPerfilCuidador, setIdPerfilCuidador] = React.useState("");
+    const [ localCuidado, setLocalCuidado ] = React.useState("");
 
     const tipoUsuario = localStorage.getItem("tipoUsuario");
     const token = localStorage.getItem("token");
@@ -64,11 +66,11 @@ function App() {
                     <Route path="/cad_crianca" render={(props) => <Cadastro_Crianca {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario} />} />
                     <Route path="/cad_idoso" render={(props) => <Cadastro_Idoso {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario} logado={logado} />} />
                     <Route path="/cad_cachorro" render={(props) => <Cadastro_Cachorro {...props} setIdUsuario={setIdUsuario} idUsuario={idUsuario} />} />
-                    <Route path="/busca_cuidador" render={(props) => <Busca_Cuidador {...props} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} longitude={longitude} tipoCuidado={tipoCuidado} setTipoCuidado={setTipoCuidado} idPerfilCuidador={idPerfilCuidador} setIdPerfilCuidador={setIdPerfilCuidador} />} />
+                    <Route path="/busca_cuidador" render={(props) => <Busca_Cuidador {...props} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} longitude={longitude} tipoCuidado={tipoCuidado} setTipoCuidado={setTipoCuidado} idPerfilCuidador={idPerfilCuidador} setIdPerfilCuidador={setIdPerfilCuidador} localCuidado={localCuidado} setLocalCuidado={setLocalCuidado} />} />
                     <Route path="/solicitacoes" component={Solicitacoes} />
                     <Route path="/quem_somos" component={Quem_Somos} />
                     <Route path="/servicos" component={Servicos} />
-                    <Route path="/perfil_cuidador" render={(props) => <Perfil_Cuidador {...props} tipoCuidado={tipoCuidado} idPerfilCuidador={idPerfilCuidador} setIdPerfilCuidador={setIdPerfilCuidador} />} />
+                    <Route path="/perfil_cuidador" render={(props) => <Perfil_Cuidador {...props} tipoCuidado={tipoCuidado} idPerfilCuidador={idPerfilCuidador} setIdPerfilCuidador={setIdPerfilCuidador} localCuidado={localCuidado} setLocalCuidado={setLocalCuidado} />} />
                     <Route path="/Editar_Cadastro_Usuario" component={Editar_Cadastro_Usuario} />
                     <Route path="/Editar_Cadastro_Cuidador" component={Editar_Cadastro_Cuidador} />
                     <Route component={() => <div>Página Não Encontrada - Erro 404!</div>} />

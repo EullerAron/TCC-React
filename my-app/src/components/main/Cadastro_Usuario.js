@@ -126,7 +126,7 @@ function Cadastro_Usuario(props) {
             
         });
 
-        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&telefone="+telefone
+        xhr.send("nome="+nome+"&dataNasc="+dataNasc+"&senha="+senha+"&genero="+genero+"&celular="+telefone
         +"&CPF="+CPF+"&email="+email+"&tipoUsuario="+tipoUsuario+"&cep="+cep+"&estado="+estado+"&cidade="+cidade
         +"&rua="+rua+"&numero="+numero+"&bairro="+bairro+"&latitude="+latitude+"&longitude="+longitude+"&imagem="+imagem);
 

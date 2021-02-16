@@ -29,6 +29,10 @@ app.use('/autenticacao', autenticacao);
 const busca = require('./controller/busca_controller');
 app.use('/busca', busca);
 
+//busca 
+const atualiza = require('./controller/atualiza_controller');
+app.use('/solicitacao', atualiza);
+
 //rota teste de token
 const token = require('./controller/teste_token');
 app.use('/token', token);

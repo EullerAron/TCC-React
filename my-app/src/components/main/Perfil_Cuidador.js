@@ -1,91 +1,140 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../css/perfil_cuidador.css';
 import { Redirect } from 'react-router';
 
 function Perfil_Cuidador(props) {
 
-    if(document.getElementById("PerfCuidCorpo") !== null) {
+    useEffect(() => {
+        if(document.getElementById("PerfCuidCorpo") !== null) {
 
-        const idPerfilCuidador = props.idPerfilCuidador;
-        const tipoCuidado = props.tipoCuidado;
-        console.log(idPerfilCuidador);
-        console.log(tipoCuidado);
-    
-        var xhr = new XMLHttpRequest();
-    
-        xhr.open("POST", "/busca/perfil_cuidador", true);
-    
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
-        xhr.addEventListener("load", function () {
-    
-            console.log("Resposta: " + xhr.response);
-    
-            var resposta = xhr.response;
-    
-            var respostaJson = JSON.parse(resposta);
-    
-            if (respostaJson.error) {
-                console.log(respostaJson.error);
-            } else {
-                var user = respostaJson.user;
-                var perfilCuidador = respostaJson.perfilCuidador;
-                console.log(user.nome);
-                console.log(perfilCuidador);
-
-                if(document.getElementById("nome") !== null) {
-                    document.getElementById("nome").textContent = "Nome: " + user.nome;
-                    document.getElementById("endereco").textContent = user.bairro + " " + user.cidade;
-                    document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
-                    document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
+            const idPerfilCuidador = props.idPerfilCuidador;
+            const tipoCuidado = props.tipoCuidado;
+            console.log(idPerfilCuidador);
+            console.log(tipoCuidado);
         
-                    if (perfilCuidador.domingoManha == false) {
-                        document.getElementById("idDomingoManha").style.backgroundColor = "green";
+            var xhr = new XMLHttpRequest();
+        
+            xhr.open("POST", "/busca/perfil_cuidador", true);
+        
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        
+            xhr.addEventListener("load", function () {
+        
+                console.log("Resposta: " + xhr.response);
+        
+                var resposta = xhr.response;
+        
+                var respostaJson = JSON.parse(resposta);
+        
+                if (respostaJson.error) {
+                    console.log(respostaJson.error);
+                } else {
+                    console.log("entrou aqui")
+                    var user = respostaJson.user;
+                    var perfilCuidador = respostaJson.perfilCuidador;
+                    console.log(user.nome);
+                    console.log(perfilCuidador);
+    
+                    if(document.getElementById("nome") !== null) {
+                        document.getElementById("nome").textContent = "Nome: " + user.nome;
+                        document.getElementById("endereco").textContent = user.bairro + ", " + user.cidade;
+                        document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
+                        document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
+            
+                        if (perfilCuidador.domingoManha == false) {
+                            document.getElementById("idDomingoManha").checked = true;
+                        }
                     }
+        
                 }
-    
-            }
-        });
-    
-        xhr.send("idPerfilCuidador=" + idPerfilCuidador + "&tipoCuidado=" + tipoCuidado);
-    }
+            });
+        
+            xhr.send("idPerfilCuidador=" + idPerfilCuidador + "&tipoCuidado=" + tipoCuidado);
+        }
 
-    const reservar = function () {
+    });
+
+    const preReservar = function(){
+
         const token = localStorage.getItem("token");
 
         if(!token){
             alert("Você precisa estar logado para fazer uma reserva!");
         } else {
-            const data = document.getElementById("data").value;
+
             const idUsuarioCliente = localStorage.getItem("id");
-            const idUsuarioCuidador = props.idPerfilCuidador;
-            const tipo = props.tipoCuidado;
-    
+
             var xhr = new XMLHttpRequest();
-    
-            xhr.open("POST", "/cadastro/servico", true);
-    
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
+
+            xhr.open("GET", "busca/user/" + idUsuarioCliente);
+        
             xhr.addEventListener("load", function () {
-    
-                console.log("Resposta: " + xhr.response);
-    
-                var resposta = xhr.response;
-    
-                var respostaJson = JSON.parse(resposta);
-    
-                if (respostaJson.error) {
-                    console.log(respostaJson.error);
+        
+                var resposta = xhr.responseText;
+                console.log(resposta);;
+
+                var resp = JSON.parse(resposta);
+
+                console.log("userrrrrrrr" + resp.nome);
+
+                if (resp.error) { //Testa se o User foi encontrado no DB
+                    console.log(resp.error);
                 } else {
-                    alert("Solicitação feita com sucesso! ");
-                    setReservado(true);
+                    const nomeCliente = resp.nome;
+                    const bairroCliente = resp.bairro;
+                    const cidadeCliente = resp.cidade;
+                    const telefoneCliente = resp.celular;
+
+                    console.log("prereservar "+ nomeCliente + bairroCliente + cidadeCliente);
+
+                    reservar(nomeCliente, bairroCliente, cidadeCliente, telefoneCliente);
                 }
             });
-    
-            xhr.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador
-            + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo);
+        
+            xhr.send();
         }
+    }
+
+
+    const reservar = function (nomeCliente, bairroCliente, cidadeCliente, telefoneCliente) {
+
+        console.log("Entrou na reserva");
+
+        const data = document.getElementById("data").value;
+        const idUsuarioCliente = localStorage.getItem("id");
+        const idUsuarioCuidador = props.idPerfilCuidador;
+        const tipo = props.tipoCuidado;
+        const localCuidado = props.localCuidado;
+        const aceite = false;
+
+        console.log("testando variaveis  "+ data + idUsuarioCliente + idUsuarioCuidador + tipo+ localCuidado);
+
+        var xhr1 = new XMLHttpRequest();
+
+        xhr1.open("POST", "/cadastro/servico", true);
+
+        xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr1.addEventListener("load", function () {
+
+            console.log("Resposta: " + xhr1.response);
+
+            var resposta = xhr1.response;
+
+            var respostaJson = JSON.parse(resposta);
+
+            if (respostaJson.error) {
+                console.log(respostaJson.error);
+            } else {
+                alert("Solicitação feita com sucesso! ");
+                setReservado(true);
+            }
+        });
+
+        xhr1.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador + "&aceite=" + aceite
+        + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo + "&nomeCliente=" + nomeCliente
+        + "&bairroCliente=" + bairroCliente + "&cidadeCliente=" + cidadeCliente + "&localCuidado=" + localCuidado + "&telefoneCliente=" + telefoneCliente
+        );
 
     }
 
@@ -93,6 +142,17 @@ function Perfil_Cuidador(props) {
 
     if (reservado){
         return <Redirect push to="/" />;
+    }
+
+    function habilitaDate(){
+        if (document.getElementById("data").value !== "") {
+            document.getElementById("btReservar").disabled = false;  
+            document.getElementById("btReservar").addEventListener('click' , function(){
+                preReservar()
+            })          
+        }else{
+            document.getElementById("btReservar").setAttribute("disabled", "disabled");
+        }
     }
 
     return (
@@ -109,8 +169,6 @@ function Perfil_Cuidador(props) {
                             <p id="nome"> João José</p> <br />
                             <p id="endereco"> Rua Coronel Vida Ramos nº 444</p> <br />
                             <p><b>Nota:</b> 4.8</p> <br />
-
-
                         </div>
                     </div>
 
@@ -128,134 +186,139 @@ function Perfil_Cuidador(props) {
                 </div>
 
                 <div id="ladoDireito">
-                    <div id="">
-                        <button type="button" class="btn btn-outline-primary" id="btReservar" onClick={reservar}>RESERVAR</button>
-                    </div>
 
                     <div id="disponibilidade">
+                        <p>Dias e períodos disponíveis:</p>
+                    </div>
+
+                    <div id="dispCuidador">
+                        <table className="tabela_Periodo">
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    <label htmlFor="idDomingo" id="idDomingo">Dom </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idSegunda" id="idSegunda">Seg </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idTerca" id="idTerca">Ter </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idQuarta" id="idQuarta">Qua </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idQuinta" id="idQuinta">Qui </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idSexta" id="idSexta">Sex </label>
+                                </th>
+                                <th>
+                                    <label htmlFor="idSábado" id="idSabado">Sáb </label>
+                                </th>
+                            </tr>
+                            <tr id="linhas">
+                                <th>
+                                    <label id="manha" htmlFor="idManha">Manhã</label>
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idDomingoManha" name="nmDomingoManhaa" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSegundaManha" name="nmSegundaManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idTercaManha" name="nmTercaManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuartaManha" name="nmQuartaManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuintaManha" name="nmQuintaManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSextaManha" name="nmSextaManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSabadoManha" name="nmSabadoManha" className="checkDisp" disabled="disabled" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label id="tarde" htmlFor="idTarde">
+                                        Tarde
+                            </label>
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idDomingoTarde" name="nmDomingoTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSegundaTarde" name="nmSegundaTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idTercaTarde" name="nmTercaTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuartaTarde" name="nmQuartaTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuintaTarde" name="nmQuintaTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSextaTarde" name="nmSextaTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSabadoTarde" name="nmSabadoTarde" className="checkDisp" disabled="disabled" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label id="noite" htmlFor="idNoite">
+                                        Noite
+                            </label>
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idDomingoNoite" name="nmDomingoNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSegundaNoite" name="nmSegundaNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idTercaNoite" name="nmTercaNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuartaNoite" name="nmQuartaNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idQuintaNoite" name="nmQuintaNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSextaNoite" name="nmSextaNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="idSabadoNoite" name="nmSabadoNoite" className="checkDisp" disabled="disabled" />
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="dataServ">
                         <p>Escolha a data do serviço:</p>
                     </div>
                     <div id="calendario">
                         <form>
                             <div>
-                                <input type="date" id="data" />
+                                <input type="date" id="data" onBlur={habilitaDate} />
                             </div>
                         </form>
                     </div>
+
+                    <div id="">
+                        <button type="button" className="btn btn-success" id="btReservar" disabled="true" onClick={reservar}>RESERVAR</button>
+                    </div>
                 </div>
             </div>
-
-            <table className="tabela_Periodo">
-                <tr>
-                    <th>
-                    </th>
-                    <th>
-                        <label htmlFor="idDomingo" id="idDomingo">Domingo </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idSegunda" id="idSegunda">Segunda </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idTerca" id="idTerca">Terça </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idQuarta" id="idQuarta">Quarta </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idQuinta" id="idQuinta">Quinta </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idSexta" id="idSexta">Sexta </label>
-                    </th>
-                    <th>
-                        <label htmlFor="idSábado" id="idSabado">Sábado </label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label id="manha" htmlFor="idManha">
-                            Manhã
-                            </label>
-                    </th>
-                    <th id="idDomingoManha">
-
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSegundaManha" name="nmSegundaManha" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idTercaManha" name="nmTercaManha" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuartaManha" name="nmQuartaManha" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuintaManha" name="nmQuintaManha" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSextaManha" name="nmSextaManha" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSabadoManha" name="nmSabadoManha" disabled="disabled" />
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label id="tarde" htmlFor="idTarde">
-                            Tarde
-                            </label>
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idDomingoTarde" name="nmDomingoTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSegundaTarde" name="nmSegundaTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idTercaTarde" name="nmTercaTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuartaTarde" name="nmQuartaTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuintaTarde" name="nmQuintaTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSextaTarde" name="nmSextaTarde" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSabadoTarde" name="nmSabadoTarde" disabled="disabled" />
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label id="noite" htmlFor="idNoite">
-                            Noite
-                            </label>
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idDomingoNoite" name="nmDomingoNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSegundaNoite" name="nmSegundaNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idTercaNoite" name="nmTercaNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuartaNoite" name="nmQuartaNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idQuintaNoite" name="nmQuintaNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSextaNoite" name="nmSextaNoite" disabled="disabled" />
-                    </th>
-                    <th>
-                        <input type="checkbox" id="idSabadoNoite" name="nmSabadoNoite" disabled="disabled" />
-                    </th>
-                </tr>
-            </table>
 
         </div>
     );
