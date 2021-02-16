@@ -3,6 +3,7 @@ import '../../css/perfil_cuidador.css';
 import { Redirect } from 'react-router';
 
 function Perfil_Cuidador(props) {
+    var globalUser;
 
     useEffect(() => {
         if(document.getElementById("PerfCuidCorpo") !== null) {
@@ -34,15 +35,79 @@ function Perfil_Cuidador(props) {
                     var perfilCuidador = respostaJson.perfilCuidador;
                     console.log(user.nome);
                     console.log(perfilCuidador);
+                    globalUser = user;
     
                     if(document.getElementById("nome") !== null) {
                         document.getElementById("nome").textContent = "Nome: " + user.nome;
                         document.getElementById("endereco").textContent = user.bairro + ", " + user.cidade;
                         document.getElementById("descricaoCuidador").textContent = perfilCuidador.descricao;
                         document.getElementById("tituloSobre").textContent = "Sobre " + user.nome;
+                        document.getElementById("valor").textContent = "Valor: R$" + perfilCuidador.valor;
             
-                        if (perfilCuidador.domingoManha == false) {
+                        if (perfilCuidador.domingoManha == true) {
                             document.getElementById("idDomingoManha").checked = true;
+                        }
+                        if (perfilCuidador.segundaManha == true) {
+                            document.getElementById("idSegundaManha").checked = true;
+                        }
+                        if (perfilCuidador.tercaManha == true) {
+                            document.getElementById("idTercaManha").checked = true;
+                        }
+                        if (perfilCuidador.quartaManha == true) {
+                            document.getElementById("idQuartaManha").checked = true;
+                        }
+                        if (perfilCuidador.quintaManha == true) {
+                            document.getElementById("idQuintaManha").checked = true;
+                        }
+                        if (perfilCuidador.sextaManha == true) {
+                            document.getElementById("idSextaManha").checked = true;
+                        }
+                        if (perfilCuidador.sabadoManha == true) {
+                            document.getElementById("idSabadoManha").checked = true;
+                        }
+            
+                        if (perfilCuidador.domingoTarde == true) {
+                            document.getElementById("idDomingoTarde").checked = true;
+                        }
+                        if (perfilCuidador.segundaTarde == true) {
+                            document.getElementById("idSegundaTarde").checked = true;
+                        }
+                        if (perfilCuidador.tercaTarde == true) {
+                            document.getElementById("idTercaTarde").checked = true;
+                        }
+                        if (perfilCuidador.quartaTarde == true) {
+                            document.getElementById("idQuartaTarde").checked = true;
+                        }
+                        if (perfilCuidador.quintaTarde == true) {
+                            document.getElementById("idQuintaTarde").checked = true;
+                        }
+                        if (perfilCuidador.sextaTarde == true) {
+                            document.getElementById("idSextaTarde").checked = true;
+                        }
+                        if (perfilCuidador.sabadoTarde == true) {
+                            document.getElementById("idSabadoTarde").checked = true;
+                        }
+            
+                        if (perfilCuidador.domingoNoite == true) {
+                            document.getElementById("idDomingoNoite").checked = true;
+                        }
+                        if (perfilCuidador.segundaNoite == true) {
+                            document.getElementById("idSegundaNoite").checked = true;
+                        }
+                        if (perfilCuidador.tercaNoite == true) {
+                            document.getElementById("idTercaNoite").checked = true;
+                        }
+                        if (perfilCuidador.quartaNoite == true) {
+                            document.getElementById("idQuartaNoite").checked = true;
+                        }
+                        if (perfilCuidador.quintaNoite == true) {
+                            document.getElementById("idQuintaNoite").checked = true;
+                        }
+                        if (perfilCuidador.sextaNoite == true) {
+                            document.getElementById("idSextaNoite").checked = true;
+                        }
+                        if (perfilCuidador.sabadoNoite == true) {
+                            document.getElementById("idSabadoNoite").checked = true;
                         }
                     }
         
@@ -134,6 +199,8 @@ function Perfil_Cuidador(props) {
         xhr1.send("data=" + data + "&idUsuarioCuidador=" + idUsuarioCuidador + "&aceite=" + aceite
         + "&idUsuarioCliente=" + idUsuarioCliente + "&tipo=" + tipo + "&nomeCliente=" + nomeCliente
         + "&bairroCliente=" + bairroCliente + "&cidadeCliente=" + cidadeCliente + "&localCuidado=" + localCuidado + "&telefoneCliente=" + telefoneCliente
+        + "&nomeCuidador=" + globalUser.nome + "&bairroCuidador=" + globalUser.bairro + "&cidadeCuidador=" + globalUser.cidade + "&telefoneCuidador=" + globalUser.celular
+        
         );
 
     }
@@ -169,6 +236,7 @@ function Perfil_Cuidador(props) {
                             <p id="nome"> João José</p> <br />
                             <p id="endereco"> Rua Coronel Vida Ramos nº 444</p> <br />
                             <p><b>Nota:</b> 4.8</p> <br />
+                            <p id="valor">Valor: R$</p>
                         </div>
                     </div>
 
@@ -192,7 +260,7 @@ function Perfil_Cuidador(props) {
                     </div>
 
                     <div id="dispCuidador">
-                        <table className="tabela_Periodo">
+                        <table className="tabela_Periodo_Perfil">
                             <tr>
                                 <th>
                                 </th>

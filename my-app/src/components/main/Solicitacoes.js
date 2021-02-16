@@ -30,9 +30,14 @@ function Solicitacoes() {
             console.log(respostaOBJ);
             
             document.getElementById("semSolicitacao").style.display = "none";
-            adcSolicitacao(respostaOBJ);
             globalSolicitacao = respostaOBJ;
             console.log("idFormSolicitacoes-----------" + globalSolicitacao);
+
+            if (tipoUsuario == "cliente"){
+                adcSolicitacaoCliente(respostaOBJ);
+            } else {
+                adcSolicitacaoCuidador(respostaOBJ);
+            }
 
         } else {
             document.getElementById("idFormSolicitacoes").style.display = "none";
@@ -41,7 +46,33 @@ function Solicitacoes() {
 
     xhr.send("tipoUsuario=" + tipoUsuario + "&id=" + id);
 
-    const adcSolicitacao = function (solicitacoes) {
+    const adcSolicitacaoCliente = function (solicitacoes) {
+
+        document.getElementById("idContainerBotoes").style.display = "none";
+        const texto = document.getElementById("idSolicitacaoAceita");
+        texto.style.display = "block";
+
+        const nome = document.getElementById("idNomePessoa");
+        const bairro = document.getElementById("idLocalBairro");
+        const cidade = document.getElementById("idLocalCidade");
+        const tipoCuidado = document.getElementById("idTipo");
+
+        nome.textContent = solicitacoes[0].nomeCuidador;
+        bairro.textContent = solicitacoes[0].bairroCuidador;
+        cidade.textContent = solicitacoes[0].cidadeCuidador + "  SC";
+        tipoCuidado.textContent = solicitacoes[0].tipo;
+
+        if (globalSolicitacao[0].aceite == true){
+            document.getElementById("contatoCliente").textContent = "Contato do cuidador:";
+            setContato(globalSolicitacao[0].telefoneCuidador);
+        } else {
+            texto.textContent = "Aguardando resposta do Cuidador";
+        }
+
+    }
+
+    const adcSolicitacaoCuidador = function (solicitacoes) {
+
         const nome = document.getElementById("idNomePessoa");
         const bairro = document.getElementById("idLocalBairro");
         const cidade = document.getElementById("idLocalCidade");
@@ -49,8 +80,14 @@ function Solicitacoes() {
 
         nome.textContent = solicitacoes[0].nomeCliente;
         bairro.textContent = solicitacoes[0].bairroCliente;
-        cidade.textContent = solicitacoes[0].cidadeCliente;
+        cidade.textContent = solicitacoes[0].cidadeCliente + "  SC";
         tipoCuidado.textContent = solicitacoes[0].tipo;
+
+        if (globalSolicitacao[0].aceite == true){
+            document.getElementById("idContainerBotoes").style.display = "none";
+            document.getElementById("idSolicitacaoAceita").style.display = "block";
+            setContato(globalSolicitacao[0].telefoneCliente);
+        } 
 
     }
 
@@ -77,6 +114,7 @@ function Solicitacoes() {
                 console.log(respostaOBJ);
                 document.getElementById("idContainerBotoes").style.display = "none";
                 document.getElementById("idSolicitacaoAceita").style.display = "block";
+                document.getElementById("contatoCliente").textContent = "Contato do cliente:";
                 setContato(globalSolicitacao[0].telefoneCliente);
                 
             }
@@ -108,8 +146,7 @@ function Solicitacoes() {
                         <h4 id="idNomePessoa">Nome do Cliente</h4>
                     </div>
                     <div id="IdInformacoesCliente">
-                        <span id="idLocalBairro">Bairro</span>
-                        <br />
+                        <span id="idLocalBairro">Bairro</span>  ,
                         <span id="idLocalCidade">Cidade</span>
                     </div>
                     <div>
@@ -125,7 +162,7 @@ function Solicitacoes() {
                     </div>
                     <div id="idSolicitacaoAceita" hidden="true">
                         <h2>Solicitação aceita</h2>
-                        <h4>Contato do cliente: {contato}</h4>
+                        <h4 id="contatoCliente"></h4> {contato}
                     </div>
                 </div>
             </div>

@@ -184,16 +184,27 @@ app.get('/cuidador_idoso/:latitude/:longitude', function(req, resp){
 app.post('/solicitacoes',  function(req, resp){
 
     try {
-
-        var solicitacoes = Solicitacoes.find({ idUsuarioCuidador: req.body.id }, function(error, resposta){
-            if (error) {
-                return resp.status(400).send({ error: "Erro ao buscar cuidadores de idoso"});
-            } else {
-                console.log("==Solicitacoes==> " + solicitacoes);
-                console.log("==resp =========> " + resposta);
-                return resp.json(resposta);
-            }
-        });
+        if (req.body.tipoUsuario == "cuidador") {
+            var solicitacoes = Solicitacoes.find({ idUsuarioCuidador: req.body.id }, function(error, resposta){
+                if (error) {
+                    return resp.status(400).send({ error: "Erro ao buscar cuidadores de idoso"});
+                } else {
+                    console.log("==Solicitacoes==> " + solicitacoes);
+                    console.log("==resp =========> " + resposta);
+                    return resp.json(resposta);
+                }
+            });
+        } else {
+            var solicitacoes = Solicitacoes.find({ idUsuarioCliente: req.body.id }, function(error, resposta){
+                if (error) {
+                    return resp.status(400).send({ error: "Erro ao buscar cuidadores de idoso"});
+                } else {
+                    console.log("==Solicitacoes==> " + solicitacoes);
+                    console.log("==resp =========> " + resposta);
+                    return resp.json(resposta);
+                }
+            });
+        }
 
     } catch (err) {
         return resp.status(400).send({ error: "Erro ao buscar solicitações"});

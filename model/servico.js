@@ -41,6 +41,22 @@ const ServicoSchema = mongoose.Schema({
     telefoneCliente: {
         type: String,
         require: true
+    },
+    nomeCuidador: {
+        type: String,
+        require: true
+    },
+    bairroCuidador: {
+        type: String,
+        require: true
+    },
+    cidadeCuidador: {
+        type: String,
+        require: true
+    },
+    telefoneCuidador: {
+        type: String,
+        require: true
     }
 });
 
