@@ -97,100 +97,95 @@ function Busca_Cuidador(props) {
 
 
     return (
-        <body >
-            <div id="container">
-                <div id="idlinhas">
-                    <div id="filtros">
-                        <form >
-                            <div id="gridfiltros">
-                                <div id="filtroTipo">
-                                    <label htmlFor="idCategoria">tipo de serviço: </label>
-                                    <select name="nmCategoria" id="idCategoria" className="form-control">
-                                        <option value="crianca" id="crianca">Criança</option>
-                                        <option value="idoso" id="idoso">Idoso</option>
-                                        <option value="cachorro" id="cachorro">Cachorro</option>
-                                    </select><br />
-                                </div>
 
-                                <div id="filtroLocal">
-                                    <label htmlFor="idTipoCuidado">Local de serviço: </label>
-                                    <select name="nmTipoCuidado" id="idTipoCuidado" className="form-control">
-                                        <option value="minhaCasa">Minha Casa</option>
-                                        <option value="casaCuidador">Casa Cuidador</option>
-                                    </select><br />
-                                </div>
-
-                                <div id="filtrosGenero">
-                                    <label htmlFor="idSexo">Sexo: </label>
-                                    <select name="nmSexo" id="idSexo" className="form-control">
-                                        <option value="m">Masculino</option>
-                                        <option value="f">Feminino</option>
-                                    </select><br />
-                                </div>
-
-                                <div id="filtrosIdade">
-                                    <label htmlFor="idIdade">Idade:</label>
-                                    <input type="number" name="nmIdade" id="idIdade" min="0" className="form-control" /><br />
-                                </div>
-
-                                <div id="filtrosData">
-                                    <label htmlFor="idData">Data:</label>
-                                    <input type="date" name="nmData" id="idData" className="form-control" /><br />
-                                </div>
-
-                                <div id="filtrosHora">
-                                    <label for="idHora">Hora:</label>
-                                    <select name="nmHora" id="idHora" className="form-control">
-                                        <option value="manha">Manhã</option>
-                                        <option value="tarde">Tarde</option>
-                                        <option value="noite">Noite</option>
-                                        <option value="integral">Integral</option>
-                                    </select><br />
-                                </div>
-                            </div>
-                            <div id="filtroBtn">
-                                <button id="alterCenter" class="btn btn-primary" type="button" className="form-control">FILTRAR</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div id="mapa">
-                        <div style={{ height: '100%', width: '100%' }}>
-                            <GoogleMapReact
-                                bootstrapURLKeys={{ key: "AIzaSyD20-tjmRve02av9mLpPzJsPKQ7wt3R-RA" }}
-                                defaultCenter={{ lat: -26.918282, lng: -49.065385 }}
-                                defaultZoom={15}
-                                options={mapOptions}
-                                onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
-                            ></GoogleMapReact>
+        <div id="container">
+            <div id="filtros">
+                <form >
+                    <div id="gridfiltros">
+                        <div id="filtroTipo">
+                            <label htmlFor="idCategoria">tipo de serviço: </label>
+                            <select name="nmCategoria" id="idCategoria" className="form-control">
+                                <option value="crianca" id="crianca">Criança</option>
+                                <option value="idoso" id="idoso">Idoso</option>
+                                <option value="cachorro" id="cachorro">Cachorro</option>
+                            </select><br />
                         </div>
 
+                        <div id="filtroLocal">
+                            <label htmlFor="idTipoCuidado">Local de serviço: </label>
+                            <select name="nmTipoCuidado" id="idTipoCuidado" className="form-control">
+                                <option value="minhaCasa">Minha Casa</option>
+                                <option value="casaCuidador">Casa Cuidador</option>
+                            </select><br />
+                        </div>
+
+                        <div id="filtrosGenero">
+                            <label htmlFor="idSexo">Sexo: </label>
+                            <select name="nmSexo" id="idSexo" className="form-control">
+                                <option value="m">Masculino</option>
+                                <option value="f">Feminino</option>
+                            </select><br />
+                        </div>
+
+                        <div id="filtrosIdade">
+                            <label htmlFor="idIdade">Idade:</label>
+                            <input type="number" name="nmIdade" id="idIdade" min="0" className="form-control" /><br />
+                        </div>
+
+                        <div id="filtrosData">
+                            <label htmlFor="idData">Data:</label>
+                            <input type="date" name="nmData" id="idData" className="form-control" /><br />
+                        </div>
+
+                        <div id="filtrosHora">
+                            <label for="idHora">Hora:</label>
+                            <select name="nmHora" id="idHora" className="form-control">
+                                <option value="manha">Manhã</option>
+                                <option value="tarde">Tarde</option>
+                                <option value="noite">Noite</option>
+                                <option value="integral">Integral</option>
+                            </select><br />
+                        </div>
                     </div>
-                </div>
-                <div id="cardCuidadores">
-                    <div id="idTitPerfil">
-                        <h3>Cuidadores Próximos</h3>
+                    <div id="filtroBtn">
+                        <button id="alterCenter" class="btn btn-primary" type="button" className="form-control">FILTRAR</button>
                     </div>
-                    <div id="perfilCuid">
-
-
-                        {PerfilCuidador.map(perfil => (
-                            <div className="idImagem" id={perfil.user._id} key={`0${perfil.user._id}`} onClick={carregaPerf} >
-                                <img src="/img/adicionar-fotos.png" id="img" key={`1${perfil.user._id}`}></img>
-                                <div id="idCuidadores" key={`6${perfil.user._id}`}>
-                                    <p id="idNome" key={`2${perfil.user._id}`}>{perfil.user.nome}</p>
-                                    <p id="idEnd" key={`4${perfil.user._id}`}>{perfil.user.bairro}, {perfil.user.cidade}</p>
-                                    <p id="idAval" key={`5${perfil.user._id}`}>Nota: 5.0 </p>
-                                    <p id="idValor" key={`3${perfil.user._id}`}>R$:{perfil.cuidador.valor}</p>
-                                </div>
-                            </div>
-                        ))}
-
-                    </div>
-                </div>
-
+                </form>
             </div>
-        </body >
+
+            <div id="mapa">
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: "AIzaSyD20-tjmRve02av9mLpPzJsPKQ7wt3R-RA" }}
+                    defaultCenter={{ lat: -26.918282, lng: -49.065385 }}
+                    defaultZoom={15}
+                    options={mapOptions}
+                    onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
+                ></GoogleMapReact>
+            </div>
+
+            <div id="cardCuidadores">
+                <div id="idTitPerfil">
+                    <h3>Cuidadores Próximos</h3>
+                </div>
+                <div id="perfilCuid">
+
+
+                    {PerfilCuidador.map(perfil => (
+                        <div className="idImagem" id={perfil.user._id} key={`0${perfil.user._id}`} onClick={carregaPerf} >
+                            <img src="/img/adicionar-fotos.png" id="img" key={`1${perfil.user._id}`}></img>
+                            <div id="idCuidadores" key={`6${perfil.user._id}`}>
+                                <p id="idNome" key={`2${perfil.user._id}`}>{perfil.user.nome}</p>
+                                <p id="idEnd" key={`4${perfil.user._id}`}>{perfil.user.bairro}, {perfil.user.cidade}</p>
+                                <p id="idAval" key={`5${perfil.user._id}`}>Nota: 5.0 </p>
+                                <p id="idValor" key={`3${perfil.user._id}`}>R$:{perfil.cuidador.valor}</p>
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+            </div>
+        </div>
+
     );
 }
 
